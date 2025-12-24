@@ -3,118 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HÔM NAY CÓ SALE KHÔNG? - Dashboard</title>
+    <title>HÔM NAY CÓ SALE KHÔNG?</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { background-color: #121212; color: #e4e4e7; font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
-        .filter-container { background-color: #1a1a1a; border-radius: 8px; padding: 15px; border: 1px solid #2d2d2d; }
-        .label-filter { color: #a1a1aa; font-size: 13px; font-weight: 600; width: 120px; display: inline-block; }
-        
-        .btn-tag { background: #262626; border: 1px solid #3f3f46; color: #d4d4d8; padding: 4px 12px; border-radius: 99px; font-size: 12px; transition: 0.2s; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .btn-tag:hover { border-color: #fbbf24; }
-        .btn-tag.active { background: #fbbf24; color: #000; border-color: #fbbf24; font-weight: 600; }
-        
-        .card { background: #1c1c1c; border: 1px solid #2d2d2d; border-radius: 8px; transition: 0.3s; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
-        .card:hover { border-color: #fbbf24; }
-        .product-title { color: #3b82f6; font-size: 13px; font-weight: 500; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .product-title:hover { color: #60a5fa; text-decoration: underline; }
+        :root {
+            --bg-body: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --accent: #6366f1;
+        }
 
-        /* Style các nhãn (Badges) chuẩn ảnh image_cb78ea.png */
-        .badge-percent { background: rgba(220, 38, 38, 0.1); border: 1px solid #dc2626; color: #ef4444; padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 800; }
-        .badge-orig { background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; color: #3b82f6; padding: 2px 8px; border-radius: 99px; font-size: 10px; }
-        .badge-stock { background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; color: #10b981; padding: 2px 8px; border-radius: 99px; font-size: 10px; }
-        .badge-time { background: rgba(251, 191, 36, 0.1); border: 1px solid #fbbf24; color: #fbbf24; padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 600; }
+        body { 
+            background-color: var(--bg-body); 
+            color: #f1f5f9; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: radial-gradient(circle at top right, #1e1b4b, transparent), 
+                              radial-gradient(circle at bottom left, #1e1b4b, transparent);
+            background-attachment: fixed;
+        }
 
-        .btn-action { background: #262626; border: 1px solid #3f3f46; padding: 6px 12px; border-radius: 4px; color: #a1a1aa; transition: 0.2s; min-width: 44px; display: flex; align-items: center; justify-content: center; }
-        .btn-action:hover { border-color: #52525b; color: #fff; }
-        .btn-buy { background: #4285f4; color: white; flex-grow: 1; border-radius: 4px; font-weight: 600; font-size: 13px; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .btn-buy:hover { background: #357ae8; }
+        .glass {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .filter-chip.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .product-card { transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.05); }
+        .product-card:hover { transform: translateY(-8px); border-color: var(--accent); }
+
+        .shopee-gradient-text {
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hide-scroll::-webkit-scrollbar { display: none; }
         
-        input::placeholder { color: #52525b; }
-        .btn-copy { background: #3f3f46; color: white; border-radius: 4px; font-weight: 600; font-size: 13px; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.2s; }
-.btn-copy:hover { background: #52525b; }
-.btn-copy.copied { background: #10b981; } /* Màu xanh lá khi đã copy */
+        .loader {
+            width: 40px; height: 40px;
+            border: 4px solid #FFF; border-bottom-color: var(--accent);
+            border-radius: 50%; display: inline-block;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="p-4 md:p-6">
+<body class="min-h-screen pb-20">
 
-    <div class="max-w-7xl mx-auto">
-        <header class="flex justify-between items-center mb-6">
-            <h1 class="text-sm font-bold tracking-widest text-zinc-400 uppercase flex items-center gap-2">
-                <i class="fa-solid fa-bolt text-yellow-500"></i> Flash Sale Deal 1K
-            </h1>
-            <div id="clock" class="text-xs font-mono text-zinc-500">00:00:00.000</div>
-        </header>
-
-        <div class="filter-container mb-6 space-y-4">
-            <div class="flex items-start gap-2">
-                <span class="label-filter pt-1">Bộ lọc:</span>
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="toggleFilter('price', 1000)" class="btn-tag" data-f="p1000">1K 🪙</button>
-                    <button onclick="toggleFilter('price', 9000)" class="btn-tag" data-f="p9000">9K 🪙</button>
-                    <button onclick="toggleFilter('price', 29000)" class="btn-tag" data-f="p29000">29K 🪙</button>
-                    <button onclick="toggleFilter('percent', 50)" class="btn-tag" data-f="off50">Từ 50% OFF 🎯</button>
-                    <button onclick="toggleFilter('percent', 90)" class="btn-tag" data-f="off90">Từ 90% OFF 🎯</button>
-                    <button onclick="toggleFilter('stock', 50)" class="btn-tag" data-f="s50">Từ 50 SL 📦</button>
-                    <button onclick="toggleFilter('stock', 100)" class="btn-tag" data-f="s100">Từ 100 SL 📦</button>
-                </div>
+    <nav class="sticky top-0 z-50 glass border-b border-white/10 mb-3 md:mb-6">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="." class="flex items-center gap-3 group cursor-pointer transition-all">
+            <div class="relative w-12 h-12 flex-shrink-0 transition-transform group-hover:scale-105">
+                <img src="logo.png" 
+                     alt="Logo Hôm nay có sale không?" 
+                     class="w-full h-full object-cover rounded-xl shadow-lg border border-white/20">
             </div>
-
-            <div class="flex items-center gap-2">
-                <span class="label-filter">Loại trừ:</span>
-                <div class="flex gap-2">
-                    <button onclick="toggleExclude(1000)" class="btn-tag" data-ex="1000"><i class="fa-solid fa-xmark"></i> 1K</button>
-                    <button onclick="toggleExclude(9000)" class="btn-tag" data-ex="9000"><i class="fa-solid fa-xmark"></i> 9K</button>
-                    <button onclick="toggleExclude(29000)" class="btn-tag" data-ex="29000"><i class="fa-solid fa-xmark"></i> 29K</button>
-                </div>
+            
+            <div class="flex flex-col justify-center">
+                <h1 class="font-extrabold text-lg shopee-gradient-text uppercase tracking-tight leading-snug py-1 group-hover:brightness-125 transition-all">
+                    HÔM NAY CÓ SALE KHÔNG?
+                </h1>
+                <p id="clock" class="text-[10px] font-mono text-slate-400">00:00:00</p>
             </div>
+        </a>
+    </div>
+</nav>
 
-            <div class="flex items-center gap-2">
-                <span class="label-filter">Khung giờ & Shop:</span>
-                <div id="time-tags" class="flex flex-wrap gap-2 mr-2"></div>
-                <select id="shop-select" onchange="applyFilters()" class="bg-[#121212] border border-zinc-800 text-xs rounded px-3 py-1 outline-none min-w-[150px] focus:border-zinc-600">
-                    <option value="">Chọn shop</option>
-                </select>
-            </div>
+    <main class="max-w-7xl mx-auto px-4">
+        <div class="glass rounded-3xl p-4 mb-3 md:p-5 md:mb-6 shadow-2xl">
+    <div class="space-y-4 md:space-y-6">
+        
+        <div class="flex flex-col gap-3">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                <i class="fa-solid fa-filter text-indigo-400"></i> Bộ lọc Deal nhanh
+            </label>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="toggleMultiFilter('price', 1000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="1000">Deal 1K</button>
+                <button onclick="toggleMultiFilter('price', 9000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="9000">Deal 9K</button>
+                <button onclick="toggleMultiFilter('price', 29000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="29000">Deal 29K</button>
+                
+                <div class="w-px h-6 bg-white/10 mx-1 hidden md:block"></div>
 
-            <div class="flex gap-4 mt-6">
-                <div class="relative flex-grow">
-                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600 text-sm"></i>
-                    <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Tìm tên sản phẩm hoặc shop..." 
-                        class="w-full bg-[#121212] border border-zinc-800 rounded-lg pl-11 pr-4 py-2.5 text-sm focus:border-zinc-600 outline-none">
-                </div>
-                <button onclick="shuffleData()" class="bg-[#1a1a1a] border border-zinc-800 px-6 rounded-lg text-sm flex items-center gap-2 hover:bg-zinc-800">
-                    <i class="fa-solid fa-dice"></i> Ngẫu nhiên
-                </button>
+                <button onclick="toggleMultiFilter('percent', 50)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="percent" data-val="50">> 50% Giảm</button>
+                <button onclick="toggleMultiFilter('percent', 90)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="percent" data-val="90">> 90% Giảm</button>
+                <button onclick="toggleMultiFilter('stock', 100)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="stock" data-val="100">> 100 SL</button>
             </div>
         </div>
 
-        <div class="flex items-center gap-6 mb-6 border-b border-zinc-800 pb-3 text-[13px] font-bold">
-            <div class="relative pb-3 text-blue-500 border-b-2 border-blue-500 cursor-pointer">
-                Tất cả <span id="count-all" class="ml-1 bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded text-[11px]">0</span>
-            </div>
-            <div class="text-zinc-500 hover:text-zinc-300 cursor-pointer">Yêu thích <span class="px-2 py-0.5 bg-zinc-800 rounded text-[11px]">0</span></div>
-            <div class="text-zinc-500 hover:text-zinc-300 cursor-pointer">Đã ẩn <span class="px-2 py-0.5 bg-zinc-800 rounded text-[11px]">0</span></div>
-        </div>
-
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
-
-        <div id="load-more" class="mt-10 text-center hidden">
-            <button onclick="currentPage++; renderUI();" class="text-zinc-500 text-sm hover:text-white transition underline underline-offset-8 uppercase tracking-widest">XEM THÊM SẢN PHẨM</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-3 border-t border-white/5">
+    
+    <div class="space-y-3">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-red-400">Ẩn nhóm giá</label>
+        <div class="flex flex-wrap gap-2">
+            <button onclick="toggleExclude(1000)" class="filter-chip border-red-500/30 px-4 py-2 rounded-xl text-xs" data-ex="1000">Ẩn 1K</button>
+            <button onclick="toggleExclude(9000)" class="filter-chip border-red-500/30 px-4 py-2 rounded-xl text-xs" data-ex="9000">Ẩn 9K</button>
         </div>
     </div>
+
+    <div class="space-y-3 min-w-0">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Giờ & Shop</label>
+        <div class="flex flex-col md:flex-row md:items-center gap-3">
+            
+            <div id="time-tags" class="flex-1 flex gap-2 overflow-x-auto pb-1 hide-scroll min-w-0">
+                </div>
+
+            <div class="w-full md:w-44 flex-shrink-0">
+                <select id="shop-select" onchange="applyFilters()" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-indigo-500">
+                    <option value="">Tất cả shop</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+        <div class="mb-3 md:mb-6 flex flex-col md:flex-row gap-3">
+            <div class="relative flex-1">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                <input type="text" id="searchInput" oninput="applyFilters()" 
+                    placeholder="Tìm tên sản phẩm hoặc shop..." 
+                    class="w-full glass bg-slate-900/40 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all">
+            </div>
+            <button onclick="shuffleData()" class="glass px-8 py-4 rounded-2xl hover:bg-white/10 text-slate-300 font-bold text-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-shuffle"></i> NGẪU NHIÊN
+            </button>
+        </div>
+
+        <div class="flex items-center justify-between mb-4 md:mb-6 px-2">
+            <span class="text-indigo-400 font-bold text-xs tracking-widest">LIVE DEALS FOUND: <span id="count-all" class="ml-1 text-slate-200">0</span></span>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6"></div>
+
+        <div id="infinite-scroll-trigger" class="w-full flex justify-center py-10 opacity-0">
+            <span class="loader"></span>
+        </div>
+    </main>
 
     <script>
         const API_URL = 'https://homnaycosalekhong.onrender.com/api/deals';
         let allProducts = [];
         let filteredProducts = [];
         let currentPage = 1;
-        const perPage = 40; // Hiển thị 40 cái một lúc cho mượt
-
-        let filters = { price: null, percent: null, stock: null, time: null, exclude: [] };
+        const perPage = 20;
+        let filters = { price: [], percent: [], stock: [], time: [], exclude: [] };
+        let isLoading = false;
 
         async function init() {
             try {
@@ -122,25 +175,52 @@
                 allProducts = await res.json();
                 setupFilters();
                 applyFilters();
-            } catch (e) {
-                console.error("Lỗi API:", e);
-            }
+                setupInfiniteScroll();
+            } catch (e) { console.error(e); }
+        }
+
+        function setupInfiniteScroll() {
+            const trigger = document.getElementById('infinite-scroll-trigger');
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !isLoading && filteredProducts.length > currentPage * perPage) {
+                    loadMore();
+                }
+            }, { threshold: 0.1 });
+            observer.observe(trigger);
+        }
+
+        function loadMore() {
+            isLoading = true;
+            document.getElementById('infinite-scroll-trigger').style.opacity = "1";
+            setTimeout(() => {
+                currentPage++;
+                renderUI();
+                isLoading = false;
+                document.getElementById('infinite-scroll-trigger').style.opacity = "0";
+            }, 300);
         }
 
         function setupFilters() {
-            const shops = [...new Set(allProducts.map(i => i.shop_name))].sort();
-            const shopSelect = document.getElementById('shop-select');
-            shopSelect.innerHTML = '<option value="">Chọn shop</option>' + shops.map(s => `<option value="${s}">${s}</option>`).join('');
-
-            const slots = [...new Set(allProducts.map(i => i.sale_slot))].sort();
-            const timeTags = document.getElementById('time-tags');
-            timeTags.innerHTML = slots.map(s => 
-                `<button onclick="toggleFilter('time', '${s}')" class="btn-tag" data-f="t${s}"><i class="fa-solid fa-clock text-pink-500"></i> ${s}</button>`
+            const shops = [...new Set(allProducts.map(i => i.shop_name))].filter(Boolean).sort();
+            document.getElementById('shop-select').innerHTML = '<option value="">Tất cả shop</option>' + shops.map(s => `<option value="${s}">${s}</option>`).join('');
+            const slots = [...new Set(allProducts.map(i => i.sale_slot))].filter(Boolean).sort();
+            document.getElementById('time-tags').innerHTML = slots.map(s => 
+                `<button onclick="toggleMultiFilter('time', '${s}')" class="filter-chip px-4 py-2 rounded-xl text-xs whitespace-nowrap" data-type="time" data-val="${s}">${s}</button>`
             ).join('');
         }
 
-        function toggleFilter(type, val) {
-            filters[type] = filters[type] === val ? null : val;
+        // Tier logic xử lý lỗi Duy Kha đã nêu
+        function getPriceTier(price) {
+            if (price <= 2000) return 1000;
+            if (price <= 10000) return 9000;
+            if (price <= 30000) return 29000;
+            return 0;
+        }
+
+        function toggleMultiFilter(type, val) {
+            const idx = filters[type].indexOf(val);
+            if (idx > -1) filters[type].splice(idx, 1);
+            else filters[type].push(val);
             updateFilterUI();
             applyFilters();
         }
@@ -158,101 +238,98 @@
             const selectedShop = document.getElementById('shop-select').value;
 
             filteredProducts = allProducts.filter(item => {
-                const title = item.title ? item.title.toLowerCase() : '';
-                const shop = item.shop_name ? item.shop_name.toLowerCase() : '';
+                const title = item.title?.toLowerCase() || '';
+                const shop = item.shop_name?.toLowerCase() || '';
+                const itemTier = getPriceTier(item.price);
+
                 if (searchVal && !title.includes(searchVal) && !shop.includes(searchVal)) return false;
                 if (selectedShop && item.shop_name !== selectedShop) return false;
-                if (filters.price && item.price > filters.price + 1000) return false;
-                if (filters.percent && item.percent < filters.percent) return false;
-                if (filters.stock && item.amount < filters.stock) return false;
-                if (filters.time && item.sale_slot !== filters.time) return false;
-                for(let ex of filters.exclude) { if(item.price <= ex + 1000) return false; }
+                if (filters.price.length > 0 && !filters.price.includes(itemTier)) return false;
+                if (filters.exclude.includes(itemTier)) return false;
+                if (filters.percent.length > 0 && item.percent < Math.min(...filters.percent)) return false;
+                if (filters.stock.length > 0 && item.amount < Math.min(...filters.stock)) return false;
+                if (filters.time.length > 0 && !filters.time.includes(item.sale_slot)) return false;
                 return true;
             });
 
             document.getElementById('count-all').innerText = filteredProducts.length;
             currentPage = 1;
             renderUI();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function renderUI() {
     const grid = document.getElementById('product-grid');
+    const start = (currentPage - 1) * perPage;
     const limit = currentPage * perPage;
-    const items = filteredProducts.slice(0, limit);
+    const items = filteredProducts.slice(start, limit);
 
-    if (items.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-10 text-zinc-500">Không tìm thấy sản phẩm phù hợp.</div>`;
-        document.getElementById('load-more').classList.add('hidden');
+    if (items.length === 0 && currentPage === 1) {
+        grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500 italic">Không có dữ liệu phù hợp...</div>`;
         return;
     }
 
-    grid.innerHTML = items.map(item => `
-        <div class="card p-3">
-            <div class="relative mb-2">
-                <img src="${item.img}" class="w-full aspect-square object-cover rounded" loading="lazy">
-                <div class="absolute top-1 left-1">
-                    <span class="badge-percent">-${item.percent}%</span>
+    const html = items.map(item => `
+        <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group shadow-lg">
+            <div class="relative overflow-hidden">
+                <img src="${item.img}" class="w-full aspect-square object-cover group-hover:scale-110 transition-all duration-700">
+                <div class="absolute top-3 left-3 flex flex-col gap-2">
+                    <span class="bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded-lg">-${item.percent}%</span>
+                    <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg">⚡ ${item.sale_slot}</span>
                 </div>
             </div>
-            <div class="flex flex-col flex-grow">
-                <a href="${item.link}" target="_blank">
-                    <h3 class="product-title mb-2">${item.title}</h3>
+            <div class="p-4 flex flex-col flex-grow">
+                <a href="${item.link}" target="_blank" class="block mb-3 group/title">
+                    <h3 class="text-xs font-semibold text-slate-200 line-clamp-2 h-9 group-hover/title:text-indigo-400 transition-colors">
+                        ${item.title}
+                    </h3>
                 </a>
                 
-                <div class="flex flex-wrap gap-1 mb-3">
-                    <span class="badge-percent">-${item.percent}%</span>
-                    <span class="badge-orig">Gốc: ${item.original_price.toLocaleString()}đ</span>
-                    <span class="badge-stock">SL: ${item.amount.toLocaleString()}</span> <span class="badge-time"><i class="fa-solid fa-clock"></i> ${item.sale_date} ${item.sale_slot}</span>
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-xl font-extrabold text-indigo-400">${item.price.toLocaleString()}đ</span>
+                    <span class="text-[10px] text-slate-500 line-through">${item.original_price.toLocaleString()}đ</span>
                 </div>
 
-                <div class="mt-auto">
-                    <div class="flex items-baseline gap-2 mb-3">
-                        <span class="text-[19px] font-black text-emerald-500">${item.price.toLocaleString()}đ</span>
-                        <span class="text-[11px] text-zinc-500 line-through">${item.original_price.toLocaleString()}đ</span>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <a href="${item.link}" target="_blank" class="btn-buy flex-1">
-                            <i class="fa-solid fa-cart-shopping"></i> Mua
-                        </a>
-                        <button onclick="copyLink('${item.link}', this)" class="btn-copy flex-1">
-                            <i class="fa-solid fa-copy"></i> Copy
-                        </button>
+                <div class="flex flex-col gap-1.5 mb-4 border-t border-white/5 pt-3">
+                    <div class="flex items-center justify-between text-[10px]">
+                        <span class="text-slate-500"><i class="fa-solid fa-box-open mr-1"></i>Số lượng deal:</span>
+                        <span class="text-emerald-400 font-bold">${item.amount.toLocaleString()}</span>
                     </div>
                     
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mt-auto">
+                    <a href="${item.link}" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold py-3 rounded-xl text-center shadow-lg shadow-indigo-600/20">MUA</a>
+                    <button onclick="copyLink('${item.link}', this)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-bold py-3 rounded-xl">COPY</button>
                 </div>
             </div>
         </div>
     `).join('');
-    
-    document.getElementById('load-more').classList.toggle('hidden', limit >= filteredProducts.length);
+
+    if (currentPage === 1) grid.innerHTML = html;
+    else grid.insertAdjacentHTML('beforeend', html);
 }
 
         function updateFilterUI() {
-            document.querySelectorAll('.btn-tag').forEach(btn => {
-                const f = btn.dataset.f; const ex = parseInt(btn.dataset.ex);
-                btn.classList.remove('active');
-                if (f === 'p' + filters.price || f === 'off' + filters.percent || f === 's' + filters.stock || f === 't' + filters.time || filters.exclude.includes(ex)) btn.classList.add('active');
+            document.querySelectorAll('.filter-chip').forEach(btn => {
+                const type = btn.dataset.type;
+                const val = btn.dataset.val;
+                const ex = parseInt(btn.dataset.ex);
+                if (type && filters[type].includes(type === 'time' ? val : parseInt(val))) btn.classList.add('active');
+                else if (ex && filters.exclude.includes(ex)) btn.classList.add('active');
+                else btn.classList.remove('active');
             });
         }
 
         function shuffleData() { allProducts.sort(() => Math.random() - 0.5); applyFilters(); }
+        function copyLink(url, btn) {
+            navigator.clipboard.writeText(url).then(() => {
+                const old = btn.innerText; btn.innerText = 'XONG!';
+                setTimeout(() => btn.innerText = old, 1500);
+            });
+        }
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         init();
-        function copyLink(url, btn) {
-    navigator.clipboard.writeText(url).then(() => {
-        // Hiệu ứng phản hồi cho người dùng
-        const originalContent = btn.innerHTML;
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> Xong!';
-        btn.classList.add('copied');
-        
-        setTimeout(() => {
-            btn.innerHTML = originalContent;
-            btn.classList.remove('copied');
-        }, 2000);
-    }).catch(err => {
-        console.error('Không thể copy:', err);
-    });
-}
     </script>
 </body>
 </html>
