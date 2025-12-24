@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HÔM NAY CÓ SALE KHÔNG?</title>
+    <title>HÔM NAY CÓ SALE KHÔNG? - DEAL 1K</title>
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -80,7 +80,7 @@
             
             <div class="flex flex-col justify-center">
                 <h1 class="font-extrabold text-lg shopee-gradient-text uppercase tracking-tight leading-snug py-1 group-hover:brightness-125 transition-all">
-                    HÔM NAY CÓ SALE KHÔNG?
+                    HÔM NAY CÓ SALE KHÔNG? - DEAL 1K
                 </h1>
                 <p id="clock" class="text-[10px] font-mono text-slate-400">00:00:00</p>
             </div>
@@ -120,7 +120,7 @@
     </div>
 
     <div class="space-y-3 min-w-0">
-        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Giờ & Shop</label>
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Khung giờ sale</label>
         <div class="flex flex-col md:flex-row md:items-center gap-3">
             
             <div id="time-tags" class="flex-1 flex gap-2 overflow-x-auto pb-1 hide-scroll min-w-0">
@@ -150,7 +150,7 @@
         </div>
 
         <div class="flex items-center justify-between mb-4 md:mb-6 px-2">
-            <span class="text-indigo-400 font-bold text-xs tracking-widest">LIVE DEALS FOUND: <span id="count-all" class="ml-1 text-slate-200">0</span></span>
+            <span class="text-indigo-400 font-bold text-xs tracking-widest">TẤT CẢ: <span id="count-all" class="ml-1 text-slate-200">0</span></span>
         </div>
 
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6"></div>
@@ -209,7 +209,6 @@
             ).join('');
         }
 
-        // Tier logic xử lý lỗi Duy Kha đã nêu
         function getPriceTier(price) {
             if (price <= 2000) return 1000;
             if (price <= 10000) return 9000;
@@ -265,7 +264,7 @@
     const items = filteredProducts.slice(start, limit);
 
     if (items.length === 0 && currentPage === 1) {
-        grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500 italic">Không có dữ liệu phù hợp...</div>`;
+        grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500 italic">Không có món bạn cần tìm rồi...</div>`;
         return;
     }
 
