@@ -308,11 +308,13 @@
                     </h3>
                 </a>
                 
-                <div class="flex items-baseline gap-2 mb-4 flex-wrap">
-                    <span class="text-xl font-extrabold text-indigo-400">${item.price.toLocaleString()}đ</span>
+                <div class="flex items-center gap-2 mb-4 flex-wrap">
+                    <span class="text-xl font-extrabold text-indigo-400">
+                        ${item.price.toLocaleString()}đ
+                    </span>
                     
-                    <span class="text-[10px] font-bold text-slate-300 bg-white/5 px-2 py-0.5 rounded border border-white/10">
-                        ${item.sale_date}
+                    <span class="text-[11px] font-black text-red-400 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20">
+                        -${item.percent}%
                     </span>
 
                     <span class="text-[10px] text-slate-500 line-through w-full mt-0.5">
