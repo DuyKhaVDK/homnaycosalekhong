@@ -84,20 +84,26 @@
 
     <nav class="sticky top-0 z-50 glass border-b border-white/10 mb-3 md:mb-6">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="." class="flex items-center gap-3 group cursor-pointer transition-all">
-            <div class="relative w-12 h-12 flex-shrink-0 transition-transform group-hover:scale-105">
+        <a href="." class="flex items-center gap-2 md:gap-3 group cursor-pointer transition-all">
+            <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 transition-transform group-hover:scale-105">
                 <img src="logomain.png" 
-                     alt="Logo Hôm nay có sale không?" 
+                     alt="Logo" 
                      class="w-full h-full object-cover rounded-xl shadow-lg border border-white/20">
             </div>
-            
             <div class="flex flex-col justify-center">
-                <h1 class="font-extrabold text-lg shopee-gradient-text uppercase tracking-tight leading-snug py-1 group-hover:brightness-125 transition-all">
+                <h1 class="font-extrabold text-sm md:text-lg shopee-gradient-text uppercase tracking-tight leading-snug py-1 group-hover:brightness-125 transition-all">
                     HÔM NAY CÓ SALE KHÔNG? - DEAL 1K
                 </h1>
-                <p id="clock" class="text-[10px] font-mono text-slate-400">00:00:00</p>
+                <p id="clock" class="text-[9px] md:text-[10px] font-mono text-slate-400">00:00:00</p>
             </div>
         </a>
+
+        <div class="flex items-center">
+            <button onclick="resetData()" class="glass px-3 py-2 md:px-4 md:py-2.5 rounded-xl border border-indigo-500/30 hover:bg-indigo-500/20 transition-all text-indigo-400 flex items-center gap-2 group active:scale-95">
+                <i class="fa-solid fa-arrows-rotate group-hover:rotate-180 transition-transform duration-500"></i>
+                <span class="text-[10px] md:text-xs font-bold tracking-widest uppercase">Reset</span>
+            </button>
+        </div>
     </div>
 </nav>
 
@@ -342,6 +348,50 @@
         }
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         init();
+        let isResetting = false; // Biến cờ để kiểm tra trạng thái
+
+async function resetData() {
+    // 1. Chặn ngay lập tức nếu đang trong quá trình reset hoặc cooldown
+    if (isResetting) return;
+    
+    isResetting = true;
+    const btn = document.querySelector('button[onclick="resetData()"]');
+    const originalHTML = btn.innerHTML;
+
+    // 2. Vô hiệu hóa nút bấm và hiển thị trạng thái Loading
+    btn.disabled = true;
+    btn.classList.add('opacity-50', 'cursor-not-allowed');
+    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> <span class="text-[10px] md:text-xs">Đang nạp...</span>';
+
+    try {
+        // 3. Reset các bộ lọc và gọi API lấy dữ liệu mới
+        filters = { price: [], percent: [], stock: [], time: [], exclude: [] };
+        document.getElementById('searchInput').value = '';
+        document.getElementById('shop-select').value = '';
+        updateFilterUI();
+        
+        await init(); // Tải lại dữ liệu từ server.js
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (error) {
+        console.error("Lỗi khi reset:", error);
+    } finally {
+        // 4. Cơ chế Cooldown: Đợi 5 giây mới cho phép nhấn lại để tránh spam
+        let cooldown = 5;
+        const timer = setInterval(() => {
+            btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> <span class="text-[10px] md:text-xs">Chờ ${cooldown}s</span>`;
+            cooldown--;
+            
+            if (cooldown < 0) {
+                clearInterval(timer);
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                isResetting = false; // Mở khóa cho lần nhấn tiếp theo
+            }
+        }, 1000);
+    }
+}
     </script>
 </body>
 </html>
