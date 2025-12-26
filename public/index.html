@@ -278,54 +278,26 @@
 
         function renderUI() {
     const grid = document.getElementById('product-grid');
-    const start = (currentPage - 1) * perPage;
     const limit = currentPage * perPage;
-    const items = filteredProducts.slice(start, limit);
+    const items = filteredProducts.slice(0, limit);
+    const now = new Date();
 
     if (items.length === 0 && currentPage === 1) {
         grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500 italic">Không tìm thấy sản phẩm...</div>`;
         return;
     }
 
-    const html = items.map(item => {
-        // Tính toán thông số
-        const soldCount = item.sold || 0;
-        const totalStock = item.amount || 0;
-        const remaining = totalStock - soldCount;
-        const progressPercent = totalStock > 0 ? Math.min((soldCount / totalStock) * 100, 100) : 0;
+    const html = items.map((item, index) => {
+        // ID duy nhất cho từng sản phẩm để cập nhật sau này
+        const productId = `prod-${index}`;
         
-        const isOutOfStock = remaining <= 0;
-        const isNearEmpty = remaining <= 10 || progressPercent >= 80;
-
-        // LOGIC HIỂN THỊ CHỮ MỚI
-        let statusText = "";
-        if (isOutOfStock) {
-            statusText = "HẾT HÀNG";
-        } else if (soldCount === 0) {
-            // Nếu chưa bán được món nào, ưu tiên hiện Đã bán: 0
-            statusText = "ĐÃ BÁN: 0";
-        } else if (isNearEmpty) {
-            // Nếu đã có người mua và số lượng còn lại ít (<=10)
-            statusText = `CHỈ CÒN: ${remaining}`;
-        } else {
-            statusText = `ĐÃ BÁN: ${soldCount}`;
-        }
-
         return `
-        <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group shadow-lg relative transition-all duration-500 
-            ${isOutOfStock ? 'brightness-[0.3] grayscale-[0.2]' : ''}">
-            
-            ${isOutOfStock ? `
-                <div class="absolute top-2 right-2 z-20">
-                    <span class="bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full border border-white/20 shadow-lg uppercase">Hết</span>
-                </div>
-            ` : ''}
-
+        <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group shadow-lg relative transition-all duration-500" id="${productId}">
             <div class="relative overflow-hidden">
                 <img src="${item.img}" class="w-full aspect-square object-cover group-hover:scale-110 transition-all duration-700">
                 <div class="absolute top-3 left-3 flex flex-col gap-2">
-                    <span class="bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-lg">📅 ${item.sale_date}</span>
-                    <span class="bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg">⚡ ${item.sale_slot}</span>
+                    <span class="bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow-xl">📅 ${item.sale_date}</span>
+                    <span class="badge-slot bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg">⚡ ${item.sale_slot}</span>
                 </div>
             </div>
 
@@ -338,29 +310,29 @@
                 </a>
                 
                 <div class="flex items-center gap-2 mb-3 flex-wrap">
-                    <span class="text-[16px] md:text-[19px] font-extrabold text-indigo-400">${item.price.toLocaleString()}đ</span>
-                    <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">SL: ${totalStock}</span>
-                    <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70 w-full mt-[-4px]">${item.original_price.toLocaleString()}đ</span>
+                    <span class="text-[16px] md:text-[19px] font-extrabold text-indigo-400 leading-none">${item.price.toLocaleString()}đ</span>
+                    <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">SL: ${item.amount}</span>
                 </div>
 
                 <div class="relative w-full h-4 bg-slate-700/50 rounded-full overflow-hidden mb-4 border border-white/5">
-                    <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-1000" 
-                         style="width: ${isOutOfStock ? '100%' : progressPercent + '%'}"></div>
-                    <div class="absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter">
-                        ${statusText}
+                    <div class="progress-bar-fill absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-500"></div>
+                    <div class="countdown-text absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter">
+                        ĐANG TẢI...
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 mt-auto">
-                    <a href="${item.link}" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] md:text-[11px] font-bold py-2.5 rounded-xl text-center active:scale-95 transition-all">MUA NGAY</a>
+                    <a href="${item.link}" target="_blank" class="buy-btn bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] md:text-[11px] font-bold py-2.5 rounded-xl text-center active:scale-95 transition-all">MUA NGAY</a>
                     <button onclick="copyLink('${item.link}', this)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] md:text-[11px] font-bold py-2.5 rounded-xl active:scale-95 transition-all">COPY</button>
                 </div>
             </div>
         </div>
-    `}).join('');
+        `;
+    }).join('');
 
-    if (currentPage === 1) grid.innerHTML = html;
-    else grid.insertAdjacentHTML('beforeend', html);
+    grid.innerHTML = html;
+    // Sau khi vẽ xong khung, chạy hàm cập nhật thời gian ngay lập tức
+    updateTimers();
 }
 
         function updateFilterUI() {
@@ -427,6 +399,70 @@ async function resetData() {
         }, 1000);
     }
 }
+function updateTimers() {
+    const now = new Date();
+    const limit = currentPage * perPage;
+    const items = filteredProducts.slice(0, limit);
+
+    items.forEach((item, index) => {
+        const card = document.getElementById(`prod-${index}`);
+        if (!card) return;
+
+        const [day, month] = item.sale_date.split('/').map(Number);
+        const [hour, minute] = item.sale_slot.split(':').map(Number);
+        const saleTime = new Date(now.getFullYear(), month - 1, day, hour, minute);
+
+        const isNotStarted = now < saleTime;
+        const soldCount = item.sold || 0;
+        const totalStock = item.amount || 0;
+        const remaining = totalStock - soldCount;
+        const isOutOfStock = remaining <= 0;
+
+        // Tìm các thành phần cần update trong card
+        const textEl = card.querySelector('.countdown-text');
+        const barEl = card.querySelector('.progress-bar-fill');
+        const badgeEl = card.querySelector('.badge-slot');
+        const buyBtn = card.querySelector('.buy-btn');
+
+        let statusText = "";
+        let barWidth = "0%";
+
+        if (isNotStarted) {
+            const diff = saleTime - now;
+            const h = Math.floor(diff / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            statusText = `MỞ BÁN SAU: ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            
+            // UI cho hàng chưa mở
+            barWidth = "0%";
+            barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-indigo-500/50";
+            badgeEl.className = "badge-slot bg-amber-500 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg";
+            buyBtn.innerText = "THÊM GIỎ SẴN";
+        } else {
+            // UI cho hàng đang mở hoặc hết
+            if (isOutOfStock) {
+                statusText = "HẾT HÀNG";
+                barWidth = "100%";
+                card.classList.add('brightness-[0.3]', 'grayscale-[0.2]');
+            } else {
+                statusText = remaining <= 10 ? `CHỈ CÒN: ${remaining}` : `ĐÃ BÁN: ${soldCount}`;
+                barWidth = Math.min((soldCount / totalStock) * 100, 100) + '%';
+                card.classList.remove('brightness-[0.3]', 'grayscale-[0.2]');
+            }
+            barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600";
+            badgeEl.className = "badge-slot bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg";
+            buyBtn.innerText = "MUA NGAY";
+        }
+
+        // Chỉ cập nhật nếu có sự thay đổi để tránh render dư thừa
+        if (textEl.innerText !== statusText) textEl.innerText = statusText;
+        if (barEl.style.width !== barWidth) barEl.style.width = barWidth;
+    });
+}
+// Cập nhật giao diện mỗi 1 giây để đồng hồ đếm ngược chạy liên tục
+// KHÔNG gọi renderUI nữa, chỉ gọi updateTimers để cập nhật con số
+setInterval(updateTimers, 1000);
     </script>
 </body>
 </html>
