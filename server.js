@@ -11,12 +11,16 @@ const port = process.env.PORT || 3000;
 const AFFILIATE_ID = process.env.SHOPEE_AFFILIATE_ID;
 
 // Hàm tạo link theo công thức "Link Wrapping"
+// Cập nhật hàm tạo link trong server.js
 function createUniversalLink(originUrl) {
     // Bước 1: Mã hóa URL gốc
     const encodedUrl = encodeURIComponent(originUrl);
     
-    // Bước 2: Nối chuỗi theo cấu trúc tài liệu
-    return `https://shope.ee/an_redir?origin_link=${encodedUrl}&affiliate_id=${AFFILIATE_ID}`;
+    // Bước 2: Định nghĩa Sub ID cho website của bạn
+    const SUB_ID = "websitedeal1k";
+
+    // Bước 3: Nối chuỗi theo cấu trúc mới có thêm sub_id
+    return `https://shope.ee/an_redir?origin_link=${encodedUrl}&affiliate_id=${AFFILIATE_ID}&sub_id=${SUB_ID}`;
 }
 
 // Cập nhật đoạn app.get('/api/deals', ...) trong server.js
