@@ -23,15 +23,19 @@ function createUniversalLink(originUrl) {
 
 app.get('/api/deals', async (req, res) => {
     try {
-        // Lấy dữ liệu trực tiếp từ API gốc (Hiện tại đã là dữ liệu sạch)
-        const rawResponse = await axios.get('https://addlivetag.com/api/data_dealxk.php');
+        // Thêm headers để "giả lập" rằng yêu cầu này đến từ domain chính thức của bạn
+        const rawResponse = await axios.get('https://addlivetag.com/api/data_dealxk.php', {
+            headers: {
+                'Referer': 'https://homnaycosalekhong.com/',
+                'Origin': 'https://homnaycosalekhong.com/'
+            }
+        });
+
         const products = rawResponse.data;
 
-        // Chỉ cần map lại để chuyển đổi link Shopee thường thành link Affiliate
         const processedProducts = products.map(item => {
             return {
                 ...item,
-                // Giữ nguyên price, percent, amount vì không còn nhiễu
                 link: createUniversalLink(item.link)
             };
         });
@@ -39,7 +43,7 @@ app.get('/api/deals', async (req, res) => {
         res.json(processedProducts);
     } catch (err) {
         console.error("Lỗi lấy dữ liệu:", err.message);
-        res.status(500).json({ error: "Lỗi Server không thể lấy dữ liệu deal" });
+        res.status(500).json({ error: "Lỗi Server" });
     }
 });
 
