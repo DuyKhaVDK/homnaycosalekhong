@@ -288,15 +288,12 @@
     }
 
     const html = items.map(item => {
-        // 1. Tính toán các thông số theo công thức bạn yêu cầu
+        // Tính toán dữ liệu
         const soldCount = item.sold || 0;
         const totalStock = item.amount || 0;
         const remaining = totalStock - soldCount; // Công thức: Chỉ còn = kho - đã bán
-        
-        // Tính tỷ lệ phần trăm cho thanh tiến trình (tối đa 100%)
         const progressPercent = totalStock > 0 ? Math.min((soldCount / totalStock) * 100, 100) : 0;
         
-        // Xác định trạng thái "Sắp hết hàng" (Ví dụ: còn dưới 10 sản phẩm hoặc đã bán trên 80%)
         const isNearEmpty = remaining <= 10 || progressPercent >= 80;
         const isOutOfStock = remaining <= 0;
 
@@ -325,16 +322,23 @@
                     </h3>
                 </a>
                 
-                <div class="flex items-baseline flex-wrap gap-x-2 gap-y-1 mb-3">
+                <div class="flex items-center gap-2 mb-3 flex-wrap">
                     <span class="text-[16px] md:text-[19px] font-extrabold text-indigo-400">${item.price.toLocaleString()}đ</span>
-                    <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70">${item.original_price.toLocaleString()}đ</span>
+                    
+                    <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                        SL: ${totalStock}
+                    </span>
+
+                    <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70 w-full mt-[-4px]">
+                        ${item.original_price.toLocaleString()}đ
+                    </span>
                 </div>
 
                 <div class="relative w-full h-4 bg-slate-700/50 rounded-full overflow-hidden mb-4 border border-white/5">
                     <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-1000" 
                          style="width: ${isOutOfStock ? '100%' : progressPercent + '%'}"></div>
                     
-                    <div class="absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter shadow-sm">
+                    <div class="absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter">
                         ${isOutOfStock ? 'HẾT HÀNG' : (isNearEmpty ? `CHỈ CÒN: ${remaining}` : `ĐÃ BÁN: ${soldCount}`)}
                     </div>
                 </div>
