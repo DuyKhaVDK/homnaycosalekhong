@@ -287,54 +287,65 @@
         return;
     }
 
-    const html = items.map(item => `
-        <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group shadow-lg">
+    const html = items.map(item => {
+        // 1. Tính toán các thông số theo công thức bạn yêu cầu
+        const soldCount = item.sold || 0;
+        const totalStock = item.amount || 0;
+        const remaining = totalStock - soldCount; // Công thức: Chỉ còn = kho - đã bán
+        
+        // Tính tỷ lệ phần trăm cho thanh tiến trình (tối đa 100%)
+        const progressPercent = totalStock > 0 ? Math.min((soldCount / totalStock) * 100, 100) : 0;
+        
+        // Xác định trạng thái "Sắp hết hàng" (Ví dụ: còn dưới 10 sản phẩm hoặc đã bán trên 80%)
+        const isNearEmpty = remaining <= 10 || progressPercent >= 80;
+        const isOutOfStock = remaining <= 0;
+
+        return `
+        <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group shadow-lg relative ${isOutOfStock ? 'opacity-70 grayscale' : ''}">
+            
+            ${isOutOfStock ? `
+                <div class="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/40 backdrop-blur-[2px]">
+                    <span class="bg-red-600 text-white text-[12px] font-black px-4 py-2 rounded-full rotate-[-15deg] border-2 border-white shadow-2xl">HẾT HÀNG</span>
+                </div>
+            ` : ''}
+
             <div class="relative overflow-hidden">
                 <img src="${item.img}" class="w-full aspect-square object-cover group-hover:scale-110 transition-all duration-700">
                 <div class="absolute top-3 left-3 flex flex-col gap-2">
-                    <span class="bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow-xl">
-                        📅 ${item.sale_date}
-                    </span>
-                    <span class="bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg">
-                        ⚡ ${item.sale_slot}
-                    </span>
+                    <span class="bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-lg">📅 ${item.sale_date}</span>
+                    <span class="bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg">⚡ ${item.sale_slot}</span>
                 </div>
             </div>
 
             <div class="p-3 md:p-4 flex flex-col flex-grow">
-                <a href="${item.link}" target="_blank" class="block mb-2 group/title">
-                    <h3 class="text-[11px] md:text-xs font-semibold text-slate-200 line-clamp-2 h-9 group-hover/title:text-indigo-400 transition-colors leading-snug">
-                        <span class="inline-block bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded mr-1 translate-y-[-1px]">
-                            -${item.percent}%
-                        </span>
+                <a href="${item.link}" target="_blank" class="block mb-2">
+                    <h3 class="text-[11px] md:text-xs font-semibold text-slate-200 line-clamp-2 h-9 leading-snug">
+                        <span class="inline-block bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded mr-1">-${item.percent}%</span>
                         ${item.title}
                     </h3>
                 </a>
                 
-                <div class="flex items-baseline flex-wrap gap-x-2 gap-y-1 mb-4">
-                    <span class="text-[16px] md:text-[19px] font-extrabold text-indigo-400 leading-none">
-                        ${item.price.toLocaleString()}đ
-                    </span>
-                    
-                    <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70">
-                        ${item.original_price.toLocaleString()}đ
-                    </span>
+                <div class="flex items-baseline flex-wrap gap-x-2 gap-y-1 mb-3">
+                    <span class="text-[16px] md:text-[19px] font-extrabold text-indigo-400">${item.price.toLocaleString()}đ</span>
+                    <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70">${item.original_price.toLocaleString()}đ</span>
                 </div>
 
-                <div class="flex flex-col gap-1.5 mb-4 border-t border-white/5 pt-3">
-                    <div class="flex items-center justify-between text-[9px] md:text-[10px]">
-                        <span class="text-slate-500 truncate"><i class="fa-solid fa-box mr-1"></i>Kho: ${item.amount}</span>
-                        <span class="text-indigo-300 font-medium truncate ml-2"><i class="fa-solid fa-store mr-1"></i>${item.shop_name || 'Shopee'}</span>
+                <div class="relative w-full h-4 bg-slate-700/50 rounded-full overflow-hidden mb-4 border border-white/5">
+                    <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-1000" 
+                         style="width: ${isOutOfStock ? '100%' : progressPercent + '%'}"></div>
+                    
+                    <div class="absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter shadow-sm">
+                        ${isOutOfStock ? 'HẾT HÀNG' : (isNearEmpty ? `CHỈ CÒN: ${remaining}` : `ĐÃ BÁN: ${soldCount}`)}
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 mt-auto">
-                    <a href="${item.link}" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] md:text-[11px] font-bold py-2.5 rounded-xl text-center shadow-lg active:scale-95 transition-all">MUA</a>
+                    <a href="${item.link}" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] md:text-[11px] font-bold py-2.5 rounded-xl text-center active:scale-95 transition-all">MUA</a>
                     <button onclick="copyLink('${item.link}', this)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] md:text-[11px] font-bold py-2.5 rounded-xl active:scale-95 transition-all">COPY</button>
                 </div>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 
     if (currentPage === 1) grid.innerHTML = html;
     else grid.insertAdjacentHTML('beforeend', html);
