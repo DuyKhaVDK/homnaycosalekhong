@@ -444,67 +444,84 @@
 // Tự động nhận diện địa chỉ Server
 const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://homnaycosalekhong.onrender.com';
 
-// Tự động nhận diện địa chỉ Server (Local hoặc Render)
-const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:10000' : 'https://homnaycosalekhong.onrender.com';
-
 async function copyLink(url, btn) {
     const oldText = btn.innerText;
     btn.innerText = 'ĐANG LẤY...';
     btn.disabled = true;
 
-    // GIẢI PHÁP MỚI: Dùng ClipboardItem kèm Promise để không bị Mobile chặn
-    if (navigator.clipboard && window.ClipboardItem) {
-        const item = new ClipboardItem({
-            "text/plain": fetch(`${BASE_URL}/api/get-short-link`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ longUrl: url })
-            })
-            .then(res => res.json())
-            .then(data => data.shortLink || url)
-            .then(text => new Blob([text], { type: "text/plain" }))
+    try {
+        // 1. Gọi Server lấy link rút gọn (Vẫn dùng logic Mapping từ API gốc của Kha)
+        const response = await fetch(`${BASE_URL}/api/get-short-link`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ longUrl: url })
         });
+        
+        const data = await response.json();
+        const finalLink = data.shortLink || url;
 
-        navigator.clipboard.write([item]).then(() => {
+        // 2. GIẢI PHÁP CHO CHROME MOBILE: Dùng Textarea ẩn để Copy
+        const isSuccess = copyToClipboardMobile(finalLink);
+        
+        if (isSuccess) {
             btn.innerText = 'XONG!';
             btn.classList.add('bg-emerald-600');
-            setTimeout(() => {
-                btn.innerText = oldText;
-                btn.classList.remove('bg-emerald-600');
-                btn.disabled = false;
-            }, 1500);
-        }).catch(() => {
-            // Nếu ClipboardItem thất bại, dùng cách cổ điển (Dành cho Android/Chrome cũ)
-            handleLegacyCopy(url, btn, oldText);
-        });
-    } else {
-        handleLegacyCopy(url, btn, oldText);
+        } else {
+            throw new Error("Copy failed");
+        }
+    } catch (e) {
+        // Dự phòng copy link dài nếu có lỗi
+        copyToClipboardMobile(url);
+        btn.innerText = 'ĐÃ COPY';
+    } finally {
+        setTimeout(() => {
+            btn.innerText = oldText;
+            btn.classList.remove('bg-emerald-600');
+            btn.disabled = false;
+        }, 1500);
     }
 }
 
-// Hàm dự phòng cho các trình duyệt không hỗ trợ ClipboardItem
-function handleLegacyCopy(url, btn, oldText) {
+// Hàm hỗ trợ Copy chuyên biệt cho Chrome/Safari Mobile
+function copyToClipboardMobile(text) {
+    // Tạo textarea ẩn
     const textArea = document.createElement("textarea");
-    textArea.value = url;
+    textArea.value = text;
+    
+    // Đảm bảo không làm nhảy giao diện trên Mobile
     textArea.style.position = "fixed";
     textArea.style.left = "-9999px";
     textArea.style.top = "0";
+    textArea.style.fontSize = '16px'; // Ngăn iOS tự động zoom vào input
+    
     document.body.appendChild(textArea);
+    
+    // Chọn văn bản
     textArea.focus();
     textArea.select();
+    textArea.setSelectionRange(0, 99999); // Dành cho iOS
     
     try {
-        document.execCommand('copy');
-        btn.innerText = 'XONG!';
+        // Thực hiện lệnh copy
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        return successful;
     } catch (err) {
-        btn.innerText = 'LỖI!';
+        document.body.removeChild(textArea);
+        return false;
     }
-    
-    document.body.removeChild(textArea);
-    setTimeout(() => {
-        btn.innerText = oldText;
-        btn.disabled = false;
-    }, 1500);
+}
+
+// Hàm dự phòng cho các trình duyệt đời cũ
+function handleLegacyCopy(url, btn) {
+    const oldText = btn.innerText;
+    navigator.clipboard.writeText(url).then(() => {
+        btn.innerText = 'XONG!';
+        setTimeout(() => {
+            btn.innerText = oldText;
+            btn.disabled = false;
+        }, 1500);
+    });
 }
 
 // Hàm hỗ trợ copy vượt rào cản Mobile
