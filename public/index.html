@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PTL6JHZWBD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-PTL6JHZWBD');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTL6JHZWBD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-PTL6JHZWBD');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HÔM NAY CÓ SALE KHÔNG? - DEAL 1K</title>
@@ -78,127 +76,125 @@
         }
 
         @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /*Nút nổi*/
-        /* Hiệu ứng nhảy 1 lần sau mỗi 5 giây */
-@keyframes slow-bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); } /* Đứng yên */
-    10% { transform: translateY(-10px); } /* Nhảy lên */
-    15% { transform: translateY(-5px); } /* Nhảy nhẹ */
-}
+        
+        @keyframes slow-bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            10% { transform: translateY(-10px); }
+            15% { transform: translateY(-5px); }
+        }
 
-.animate-slow-bounce {
-    animation: slow-bounce 5s infinite; /* Tổng chu kỳ là 5 giây */
-}
+        .animate-slow-bounce {
+            animation: slow-bounce 5s infinite;
+        }
+
+        #wishlist-filter-btn.active-wish {
+            color: #ec4899;
+        }
     </style>
 </head>
 <body class="min-h-screen pb-20">
 
     <nav class="sticky top-0 z-50 glass border-b border-white/10 mb-3 md:mb-6">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="." class="flex items-center gap-2 md:gap-3 group cursor-pointer transition-all">
-            <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 transition-transform group-hover:scale-105">
-                <img src="logomain.png" 
-                     alt="Logo" 
-                     class="w-full h-full object-cover rounded-xl shadow-lg border border-white/20">
-            </div>
-            <div class="flex flex-col justify-center">
-                <h1 class="font-extrabold text-sm md:text-lg shopee-gradient-text uppercase tracking-tight leading-snug py-1 group-hover:brightness-125 transition-all">
-                    HÔM NAY CÓ SALE KHÔNG? - DEAL 1K
-                </h1>
-                <p id="clock" class="text-[9px] md:text-[10px] font-mono text-slate-400">00:00:00</p>
-            </div>
-        </a>
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="." class="flex items-center gap-2 md:gap-3 group cursor-pointer transition-all">
+                <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 transition-transform group-hover:scale-105">
+                    <img src="logomain.png" alt="Logo" class="w-full h-full object-cover rounded-xl shadow-lg border border-white/20">
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h1 class="font-extrabold text-sm md:text-lg shopee-gradient-text uppercase tracking-tight leading-snug py-1 group-hover:brightness-125 transition-all">
+                        HÔM NAY CÓ SALE KHÔNG? - DEAL 1K
+                    </h1>
+                    <p id="clock" class="text-[9px] md:text-[10px] font-mono text-slate-400">00:00:00</p>
+                </div>
+            </a>
 
-        <div class="flex items-center">
-            <button onclick="resetData()" class="glass px-3 py-2 md:px-4 md:py-2.5 rounded-xl border border-indigo-500/30 hover:bg-indigo-500/20 transition-all text-indigo-400 flex items-center gap-2 group active:scale-95">
-                <i class="fa-solid fa-arrows-rotate group-hover:rotate-180 transition-transform duration-500"></i>
-                <span class="text-[10px] md:text-xs font-bold tracking-widest uppercase">Reset</span>
-            </button>
+            <div class="flex items-center">
+                <button onclick="resetData()" class="glass px-3 py-2 md:px-4 md:py-2.5 rounded-xl border border-indigo-500/30 hover:bg-indigo-500/20 transition-all text-indigo-400 flex items-center gap-2 group active:scale-95">
+                    <i class="fa-solid fa-arrows-rotate group-hover:rotate-180 transition-transform duration-500"></i>
+                    <span class="text-[10px] md:text-xs font-bold tracking-widest uppercase">Reset</span>
+                </button>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <main class="max-w-7xl mx-auto px-4">
         <div class="glass rounded-3xl p-4 mb-3 md:p-5 md:mb-6 shadow-2xl">
-    <div class="space-y-4 md:space-y-6">
-        
-        <div class="flex flex-col gap-3">
-            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                <i class="fa-solid fa-filter text-indigo-400"></i> Bộ lọc Deal nhanh
-            </label>
-            <div class="flex flex-wrap gap-2">
-                <button onclick="toggleMultiFilter('price', 1000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="1000">Deal 1K</button>
-                <button onclick="toggleMultiFilter('price', 9000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="9000">Deal 9K</button>
-                <button onclick="toggleMultiFilter('price', 29000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="29000">Deal 29K</button>
-                
-                <div class="w-px h-6 bg-white/10 mx-1 hidden md:block"></div>
-
-                <button onclick="toggleMultiFilter('percent', 50)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="percent" data-val="50">> 50% Giảm</button>
-                <button onclick="toggleMultiFilter('percent', 90)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="percent" data-val="90">> 90% Giảm</button>
-                <button onclick="toggleMultiFilter('stock', 100)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="stock" data-val="100">> 100 SL</button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-3 border-t border-white/5">
-    
-    <div class="space-y-3">
-        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-red-400">Ẩn nhóm giá</label>
-        <div class="flex flex-wrap gap-2">
-            <button onclick="toggleExclude(1000)" class="filter-chip border-red-500/30 px-4 py-2 rounded-xl text-xs" data-ex="1000">Ẩn 1K</button>
-            <button onclick="toggleExclude(9000)" class="filter-chip border-red-500/30 px-4 py-2 rounded-xl text-xs" data-ex="9000">Ẩn 9K</button>
-        </div>
-    </div>
-
-    <div class="space-y-3 min-w-0">
-        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Khung giờ sale</label>
-        <div class="flex flex-col md:flex-row md:items-center gap-3">
-            
-            <div id="time-tags" class="flex-1 flex gap-2 overflow-x-auto pb-1 hide-scroll min-w-0">
+            <div class="space-y-4 md:space-y-6">
+                <div class="flex flex-col gap-3">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-filter text-indigo-400"></i> Bộ lọc Deal nhanh
+                    </label>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="toggleMultiFilter('price', 1000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="1000">Deal 1K</button>
+                        <button onclick="toggleMultiFilter('price', 9000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="9000">Deal 9K</button>
+                        <button onclick="toggleMultiFilter('price', 29000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="29000">Deal 29K</button>
+                        <div class="w-px h-6 bg-white/10 mx-1 hidden md:block"></div>
+                        <button onclick="toggleMultiFilter('percent', 50)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="percent" data-val="50">> 50% Giảm</button>
+                        <button onclick="toggleMultiFilter('percent', 90)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="percent" data-val="90">> 90% Giảm</button>
+                        <button onclick="toggleMultiFilter('stock', 100)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="stock" data-val="100">> 100 SLOTS</button>
+                    </div>
                 </div>
 
-            <div class="w-full md:w-44 flex-shrink-0">
-                <select id="shop-select" onchange="applyFilters()" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-indigo-500">
-                    <option value="">Tất cả shop</option>
-                </select>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-3 border-t border-white/5">
+                    <div class="space-y-3">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-red-400">Ẩn nhóm giá</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="toggleExclude(1000)" class="filter-chip border-red-500/30 px-4 py-2 rounded-xl text-xs" data-ex="1000">Ẩn 1K</button>
+                            <button onclick="toggleExclude(9000)" class="filter-chip border-red-500/30 px-4 py-2 rounded-xl text-xs" data-ex="9000">Ẩn 9K</button>
+                        </div>
+                    </div>
+                    <div class="space-y-3 min-w-0">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Khung giờ sale</label>
+                        <div class="flex flex-col md:flex-row md:items-center gap-3">
+                            <div id="time-tags" class="flex-1 flex gap-2 overflow-x-auto pb-1 hide-scroll min-w-0"></div>
+                            <div class="w-full md:w-44 flex-shrink-0">
+                                <select id="shop-select" onchange="applyFilters()" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-indigo-500">
+                                    <option value="">Tất cả shop</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-    </div>
-</div>
 
         <div class="mb-3 md:mb-6 flex flex-col md:flex-row gap-3">
             <div class="relative flex-1">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                <input type="text" id="searchInput" oninput="applyFilters()" 
-                    placeholder="Tìm tên sản phẩm hoặc shop..." 
-                    class="w-full glass bg-slate-900/40 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all">
+                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Tìm tên sản phẩm hoặc shop..." class="w-full glass bg-slate-900/40 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all">
             </div>
-            
         </div>
 
-<div class="flex items-center justify-between mb-4 md:mb-6 px-2">
-    <span class="text-indigo-400 font-bold text-xs tracking-widest uppercase">
-        TẤT CẢ: <span id="count-all" class="ml-1 text-slate-200">0</span>
-    </span>
-    
-    <div class="flex items-center gap-2">
-        <span class="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest">SẮP XẾP</span>
-        <select id="sort-select" onchange="applyFilters()" 
-                class="bg-transparent text-slate-400 text-[10px] md:text-xs font-bold outline-none cursor-pointer hover:text-indigo-400 transition-colors uppercase tracking-widest">
-            <option value="default" class="bg-slate-900">Mặc định</option>
-            <option value="random" class="bg-slate-900">Ngẫu nhiên</option>
-            <option value="price-asc" class="bg-slate-900">Giá: Thấp - Cao</option>
-            <option value="price-desc" class="bg-slate-900">Giá: Cao - Thấp</option>
-            <option value="discount-desc" class="bg-slate-900">Giảm sâu nhất</option>
-            <option value="sold-desc" class="bg-slate-900">Bán chạy nhất</option>
-        </select>
-    </div>
-</div>
-</div>
-</div>
+        <div class="flex items-center justify-between mb-4 md:mb-6 px-2 gap-2">
+            <div class="flex items-center gap-3">
+            <button onclick="showAllProducts()" id="all-btn" class="text-indigo-400 font-bold text-[10px] md:text-xs tracking-widest uppercase flex-shrink-0 transition-all hover:brightness-125">
+                TẤT CẢ: <span id="count-all" class="ml-1 text-slate-200">0</span>
+            </button>
+            
+            <span class="text-white/10">|</span>
 
-        
+            <button onclick="toggleWishlistFilter()" id="wishlist-filter-btn" class="flex items-center gap-1.5 text-slate-500 hover:text-pink-500 transition-all duration-300 group">
+                <!-- <i class="fa-regular fa-heart text-xs group-[.active-wish]:fa-solid group-[.active-wish]:text-pink-500"></i> -->
+                <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest group-[.active-wish]:text-pink-500">
+                    Yêu thích: <span id="wishlist-count" class="ml-0.5 text-slate-200">0</span>
+                </span>
+            </button>
+            <span class="text-white/10">|</span>
+        </div>
+            
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <span class="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest">LỌC</span>
+                <select id="sort-select" onchange="applyFilters()" class="bg-transparent text-slate-400 text-[10px] md:text-xs font-bold outline-none cursor-pointer hover:text-indigo-400 transition-colors uppercase tracking-widest">
+                    <option value="default" class="bg-slate-900">Mặc định</option>
+                    <option value="random" class="bg-slate-900">Ngẫu nhiên</option>
+                    <option value="price-asc" class="bg-slate-900">Giá: Thấp - Cao</option>
+                    <option value="price-desc" class="bg-slate-900">Giá: Cao - Thấp</option>
+                    <option value="discount-desc" class="bg-slate-900">Giảm sâu nhất</option>
+                    <option value="sold-desc" class="bg-slate-900">Bán chạy nhất</option>
+                </select>
+            </div>
+        </div>
+
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6"></div>
 
         <div id="infinite-scroll-trigger" class="w-full flex justify-center py-10 opacity-0">
@@ -210,6 +206,8 @@
         const API_URL = 'https://homnaycosalekhong.onrender.com/api/deals';
         let allProducts = [];
         let filteredProducts = [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist_v1')) || [];
+        let isWishlistMode = false;
         let currentPage = 1;
         const perPage = 20;
         let filters = { price: [], percent: [], stock: [], time: [], exclude: [] };
@@ -219,6 +217,7 @@
             try {
                 const res = await fetch(API_URL);
                 allProducts = await res.json();
+                updateWishlistCounter(); // Cập nhật bộ đếm khi khởi tạo
                 setupFilters();
                 applyFilters();
                 setupInfiniteScroll();
@@ -278,110 +277,157 @@
             applyFilters();
         }
 
-function applyFilters() {
-    const searchVal = document.getElementById('searchInput').value.toLowerCase();
-    const selectedShop = document.getElementById('shop-select').value;
-    const sortSelect = document.getElementById('sort-select'); // Lấy phần tử select
-    const sortType = sortSelect.value;
+        function updateWishlistCounter() {
+            document.getElementById('wishlist-count').innerText = wishlist.length; // Cập nhật bộ đếm
+        }
 
-    // 1. Lọc sản phẩm theo tìm kiếm và shop
-    filteredProducts = allProducts.filter(item => {
-        if (searchVal && !item.title.toLowerCase().includes(searchVal)) return false;
-        if (selectedShop && item.shop_name !== selectedShop) return false;
-        if (filters.time.length > 0 && !filters.time.includes(item.sale_slot)) return false;
-        
-        // Giữ lại bộ lọc deal nhanh của bạn
-        const itemTier = getPriceTier(item.price);
-        if (filters.price.length > 0 && !filters.price.includes(itemTier)) return false;
-        
-        return true;
-    });
+        function toggleWishlist(item, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const idx = wishlist.findIndex(w => w.link === item.link);
+            if (idx > -1) {
+                wishlist.splice(idx, 1);
+            } else {
+                wishlist.push(item);
+            }
+            localStorage.setItem('wishlist_v1', JSON.stringify(wishlist));
+            updateWishlistCounter(); // Cập nhật bộ đếm ngay khi nhấn
+            renderUI();
+        }
+        function showAllProducts() {
+            isWishlistMode = false;
+            updateTabUI();
+            applyFilters();
+        }
 
-    // 2. Xử lý Sắp xếp
-    if (sortType === 'random') {
-        // Xáo trộn mảng
-        filteredProducts.sort(() => Math.random() - 0.5);
-        
-        // MẸO QUAN TRỌNG: Trả về "Mặc định" sau 100ms để có thể nhấn lại lần nữa
-        setTimeout(() => {
-            sortSelect.value = 'default';
-        }, 500);
-    } 
-    else if (sortType === 'price-asc') {
-        filteredProducts.sort((a, b) => a.price - b.price);
-    } 
-    else if (sortType === 'price-desc') {
-        filteredProducts.sort((a, b) => b.price - a.price);
-    } 
-    else if (sortType === 'discount-desc') {
-        filteredProducts.sort((a, b) => b.percent - a.percent);
-    } 
-    else if (sortType === 'sold-desc') {
-        filteredProducts.sort((a, b) => (b.sold || 0) - (a.sold || 0));
-    }
+        function toggleWishlistFilter() {
+            isWishlistMode = true;
+            updateTabUI();
+            applyFilters();
+        }
+        function updateTabUI() {
+            const allBtn = document.getElementById('all-btn');
+            const wishBtn = document.getElementById('wishlist-filter-btn');
+            
+            if (isWishlistMode) {
+                // Chế độ Yêu thích: Làm nổi bật nút tim, làm mờ nút Tất cả
+                wishBtn.classList.add('active-wish');
+                allBtn.classList.remove('text-indigo-400');
+                allBtn.classList.add('text-slate-500');
+            } else {
+                // Chế độ Tất cả: Làm nổi bật nút Tất cả, làm mờ nút tim
+                wishBtn.classList.remove('active-wish');
+                allBtn.classList.add('text-indigo-400');
+                allBtn.classList.remove('text-slate-500');
+            }
+        }
 
-    document.getElementById('count-all').innerText = filteredProducts.length;
-    currentPage = 1;
-    renderUI();
-}
+        function applyFilters() {
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            const selectedShop = document.getElementById('shop-select').value;
+            const sortSelect = document.getElementById('sort-select');
+            const sortType = sortSelect.value;
+
+            // 1. Lọc danh sách "Tất cả" dựa trên Tìm kiếm, Shop và Giờ (Bỏ qua trạng thái Yêu thích)
+            const generalFiltered = allProducts.filter(item => {
+                if (searchVal && !item.title.toLowerCase().includes(searchVal)) return false;
+                if (selectedShop && item.shop_name !== selectedShop) return false;
+                if (filters.time.length > 0 && !filters.time.includes(item.sale_slot)) return false;
+                const itemTier = getPriceTier(item.price);
+                if (filters.price.length > 0 && !filters.price.includes(itemTier)) return false;
+                return true;
+            });
+
+            // Cập nhật con số TẤT CẢ dựa trên kết quả tìm kiếm chung
+            document.getElementById('count-all').innerText = generalFiltered.length;
+
+            // 2. Xác định danh sách sẽ hiển thị thực tế (Render)
+            if (isWishlistMode) {
+                // Nếu ở tab Yêu thích, chỉ lấy những món trong wishlist
+                filteredProducts = generalFiltered.filter(item => 
+                    wishlist.some(w => w.link === item.link)
+                );
+            } else {
+                // Nếu ở tab Tất cả, lấy toàn bộ danh sách đã lọc chung
+                filteredProducts = generalFiltered;
+            }
+
+            // 3. Sắp xếp danh sách hiển thị
+            if (sortType === 'random') {
+                filteredProducts.sort(() => Math.random() - 0.5);
+                setTimeout(() => { sortSelect.value = 'default'; }, 500);
+            } 
+            else if (sortType === 'price-asc') filteredProducts.sort((a, b) => a.price - b.price);
+            else if (sortType === 'price-desc') filteredProducts.sort((a, b) => b.price - a.price);
+            else if (sortType === 'discount-desc') filteredProducts.sort((a, b) => b.percent - a.percent);
+            else if (sortType === 'sold-desc') filteredProducts.sort((a, b) => (b.sold || 0) - (a.sold || 0));
+
+            currentPage = 1;
+            renderUI();
+        }
 
         function renderUI() {
-    const grid = document.getElementById('product-grid');
-    const limit = currentPage * perPage;
-    const items = filteredProducts.slice(0, limit);
-    const now = new Date();
+            const grid = document.getElementById('product-grid');
+            const limit = currentPage * perPage;
+            const items = filteredProducts.slice(0, limit);
 
-    if (items.length === 0 && currentPage === 1) {
-        grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500 italic">Không tìm thấy sản phẩm...</div>`;
-        return;
-    }
+            if (items.length === 0 && currentPage === 1) {
+                grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500 italic">Không tìm thấy sản phẩm...</div>`;
+                return;
+            }
 
-    const html = items.map((item, index) => {
-        const productId = `prod-${index}`;
-        return `
-        <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group shadow-lg relative transition-all duration-500" id="${productId}">
-            <div class="relative overflow-hidden">
-                <img src="${item.img}" class="w-full aspect-square object-cover group-hover:scale-110 transition-all duration-700">
-                <div class="absolute top-3 left-3 flex flex-col gap-2">
-                    <span class="bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow-xl">📅 ${item.sale_date}</span>
-                    <span class="badge-slot bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg">⚡ ${item.sale_slot}</span>
+            const html = items.map((item, index) => {
+                const productId = `prod-${index}`;
+                const isLiked = wishlist.some(w => w.link === item.link);
+                return `
+                <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group shadow-lg relative transition-all duration-500" id="${productId}">
+                    <div class="relative overflow-hidden">
+                        <img src="${item.img}" class="w-full aspect-square object-cover group-hover:scale-110 transition-all duration-700">
+                        <div class="absolute top-3 left-3 flex flex-col gap-2">
+                            <span class="bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow-xl">📅 ${item.sale_date}</span>
+                            <span class="badge-slot bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg">⚡ ${item.sale_slot}</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 md:p-4 flex flex-col flex-grow">
+                        <a href="${item.link}" target="_blank" class="block mb-2 group/title">
+                            <h3 class="text-[11px] md:text-xs font-semibold text-slate-200 line-clamp-2 h-9 group-hover/title:text-indigo-400 transition-colors leading-snug">
+                                <span class="inline-block bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded mr-1">-${item.percent}%</span>
+                                ${item.title}
+                            </h3>
+                        </a>
+                        
+                        <div class="flex items-center gap-2 mb-3 flex-wrap">
+                            <span class="text-[16px] md:text-[19px] font-extrabold text-indigo-400 leading-none">${item.price.toLocaleString()}đ</span>
+                            <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">SL: ${item.amount}</span>
+                            <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70 w-full mt-[-4px]">
+                                ${item.original_price ? item.original_price.toLocaleString() + 'đ' : ''}
+                            </span>
+                        </div>
+
+                        <div class="relative w-full h-4 bg-slate-700/50 rounded-full overflow-hidden mb-4 border border-white/5">
+                            <div class="progress-bar-fill absolute top-0 left-0 h-full transition-all duration-500"></div>
+                            <div class="countdown-text absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter">ĐANG TẢI...</div>
+                        </div>
+
+                        <div class="flex gap-1.5 mt-auto">
+                            <a href="${item.link}" target="_blank" class="buy-btn flex-1 bg-indigo-600 hover:bg-indigo-500 text-white text-[9px] md:text-[11px] font-bold py-2.5 rounded-xl text-center active:scale-95 transition-all truncate px-1">MUA NGAY</a>
+                            
+                            <button onclick='toggleWishlist(${JSON.stringify(item).replace(/'/g, "&apos;")}, event)' 
+                                    class="w-10 h-10 flex-shrink-0 bg-slate-800/50 border border-white/5 rounded-xl flex items-center justify-center transition-all ${isLiked ? 'text-pink-500' : 'text-slate-400 hover:text-pink-400'}">
+                                <i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-heart text-xs"></i>
+                            </button>
+
+                            <button onclick="copyLink('${item.link}', this)" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[9px] md:text-[11px] font-bold py-2.5 rounded-xl active:scale-95 transition-all truncate px-1">COPY</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                `;
+            }).join('');
 
-            <div class="p-3 md:p-4 flex flex-col flex-grow">
-                <a href="${item.link}" target="_blank" class="block mb-2 group/title">
-                    <h3 class="text-[11px] md:text-xs font-semibold text-slate-200 line-clamp-2 h-9 group-hover/title:text-indigo-400 transition-colors leading-snug">
-                        <span class="inline-block bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded mr-1">-${item.percent}%</span>
-                        ${item.title}
-                    </h3>
-                </a>
-                
-                <div class="flex items-center gap-2 mb-3 flex-wrap">
-                    <span class="text-[16px] md:text-[19px] font-extrabold text-indigo-400 leading-none">${item.price.toLocaleString()}đ</span>
-                    <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">SL: ${item.amount}</span>
-                    
-                    <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70 w-full mt-[-4px]">
-                        ${item.original_price ? item.original_price.toLocaleString() + 'đ' : ''}
-                    </span>
-                </div>
-
-                <div class="relative w-full h-4 bg-slate-700/50 rounded-full overflow-hidden mb-4 border border-white/5">
-                    <div class="progress-bar-fill absolute top-0 left-0 h-full transition-all duration-500"></div>
-                    <div class="countdown-text absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter">ĐANG TẢI...</div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 mt-auto">
-                    <a href="${item.link}" target="_blank" class="buy-btn bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] md:text-[11px] font-bold py-2.5 rounded-xl text-center active:scale-95 transition-all">MUA NGAY</a>
-                    <button onclick="copyLink('${item.link}', this)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] md:text-[11px] font-bold py-2.5 rounded-xl active:scale-95 transition-all">COPY</button>
-                </div>
-            </div>
-        </div>
-        `;
-    }).join('');
-
-    grid.innerHTML = html;
-    updateTimers();
-}
+            grid.innerHTML = html;
+            updateTimers();
+        }
 
         function updateFilterUI() {
             document.querySelectorAll('.filter-chip').forEach(btn => {
@@ -393,191 +439,240 @@ function applyFilters() {
                 else btn.classList.remove('active');
             });
         }
+
         function copyLink(url, btn) {
             navigator.clipboard.writeText(url).then(() => {
                 const old = btn.innerText; btn.innerText = 'XONG!';
                 setTimeout(() => btn.innerText = old, 1500);
             });
         }
+
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         init();
-        let isResetting = false; // Biến cờ để kiểm tra trạng thái
-
-async function resetData() {
-    // 1. Chặn ngay lập tức nếu đang trong quá trình reset hoặc cooldown
-    if (isResetting) return;
-    
-    isResetting = true;
-    const btn = document.querySelector('button[onclick="resetData()"]');
-    const originalHTML = btn.innerHTML;
-
-    // 2. Vô hiệu hóa nút bấm và hiển thị trạng thái Loading
-    btn.disabled = true;
-    btn.classList.add('opacity-50', 'cursor-not-allowed');
-    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> <span class="text-[10px] md:text-xs">Đang nạp...</span>';
-
-    try {
-        // 3. Reset các bộ lọc và gọi API lấy dữ liệu mới
-        filters = { price: [], percent: [], stock: [], time: [], exclude: [] };
-        document.getElementById('searchInput').value = '';
-        document.getElementById('shop-select').value = '';
-        updateFilterUI();
         
-        await init(); // Tải lại dữ liệu từ server.js
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        let isResetting = false;
 
-    } catch (error) {
-        console.error("Lỗi khi reset:", error);
-    } finally {
-        // 4. Cơ chế Cooldown: Đợi 5 giây mới cho phép nhấn lại để tránh spam
-        let cooldown = 5;
-        const timer = setInterval(() => {
-            btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> <span class="text-[10px] md:text-xs">Chờ ${cooldown}s</span>`;
-            cooldown--;
+        let confirmResolve; // Biến tạm để chờ người dùng bấm nút
+
+// Hàm mở hộp thoại xác nhận dạng Promise
+        function showConfirmModal(msg) {
+            const modal = document.getElementById('confirm-modal');
+            const box = document.getElementById('confirm-box');
+            document.getElementById('confirm-msg').innerText = msg;
             
-            if (cooldown < 0) {
-                clearInterval(timer);
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                isResetting = false; // Mở khóa cho lần nhấn tiếp theo
-            }
-        }, 1000);
-    }
-}
-function updateTimers() {
-    const now = new Date();
-    const limit = currentPage * perPage;
-    const items = filteredProducts.slice(0, limit);
-
-    items.forEach((item, index) => {
-        const card = document.getElementById(`prod-${index}`);
-        if (!card) return;
-
-        const [day, month] = item.sale_date.split('/').map(Number);
-        const [hour, minute] = item.sale_slot.split(':').map(Number);
-        const saleTime = new Date(now.getFullYear(), month - 1, day, hour, minute);
-
-        const isNotStarted = now < saleTime;
-        const soldCount = item.sold || 0;
-        const totalStock = item.amount || 0;
-        const remaining = totalStock - soldCount;
-        const isOutOfStock = remaining <= 0;
-
-        // Tìm các thành phần cần update trong card
-        const textEl = card.querySelector('.countdown-text');
-        const barEl = card.querySelector('.progress-bar-fill');
-        const badgeEl = card.querySelector('.badge-slot');
-        const buyBtn = card.querySelector('.buy-btn');
-
-        let statusText = "";
-        let barWidth = "0%";
-
-        if (isNotStarted) {
-            const diff = saleTime - now;
-            const h = Math.floor(diff / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-            statusText = `MỞ BÁN SAU: ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
             
-            // UI cho hàng chưa mở
-            barWidth = "0%";
-            barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-indigo-500/50";
-            badgeEl.className = "badge-slot bg-amber-500 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg";
-            buyBtn.innerText = "THÊM GIỎ SẴN";
-        } else {
-            // UI cho hàng đang mở hoặc hết
-            if (isOutOfStock) {
-                statusText = "HẾT HÀNG";
-                barWidth = "100%";
-                card.classList.add('brightness-[0.3]', 'grayscale-[0.2]');
-            } else {
-                statusText = remaining <= 10 ? `CHỈ CÒN: ${remaining}` : `ĐÃ BÁN: ${soldCount}`;
-                barWidth = Math.min((soldCount / totalStock) * 100, 100) + '%';
-                card.classList.remove('brightness-[0.3]', 'grayscale-[0.2]');
-            }
-            barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600";
-            badgeEl.className = "badge-slot bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg";
-            buyBtn.innerText = "MUA NGAY";
+            // Hiệu ứng scale vào
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            return new Promise((resolve) => { confirmResolve = resolve; });
         }
 
-        // Chỉ cập nhật nếu có sự thay đổi để tránh render dư thừa
-        if (textEl.innerText !== statusText) textEl.innerText = statusText;
-        if (barEl.style.width !== barWidth) barEl.style.width = barWidth;
-    });
-}
-// Cập nhật giao diện mỗi 1 giây để đồng hồ đếm ngược chạy liên tục
-// KHÔNG gọi renderUI nữa, chỉ gọi updateTimers để cập nhật con số
-setInterval(updateTimers, 1000);
-function toggleGuide() {
-    const modal = document.getElementById('guide-modal');
-    if (modal.classList.contains('hidden')) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        document.body.style.overflow = 'hidden'; // Khóa cuộn trang khi mở popup
-    } else {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        document.body.style.overflow = 'auto'; // Mở lại cuộn trang
-    }
-}
+        // Hàm đóng hộp thoại
+        function closeConfirmModal(result) {
+            const modal = document.getElementById('confirm-modal');
+            const box = document.getElementById('confirm-box');
+            
+            box.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                if (confirmResolve) confirmResolve(result);
+            }, 200);
+        }
 
-// Tự động đóng khi nhấn ra ngoài vùng Popup
-window.onclick = function(event) {
-    const modal = document.getElementById('guide-modal');
-    if (event.target == modal) {
-        toggleGuide();
-    }
-}
+        // CẬP NHẬT HÀM RESETDATA
+        async function resetData() {
+            if (isResetting) return;
+
+            // Sử dụng hộp thoại mới thay cho confirm() mặc định
+            if (wishlist.length > 0) {
+                const confirmed = await showConfirmModal("Bạn muốn xóa toàn bộ danh sách yêu thích đã cài đặt?");
+                if (!confirmed) return; // Nếu chọn Hủy thì dừng lại
+                
+                // Tiến hành xóa
+                wishlist = [];
+                localStorage.removeItem('wishlist_v1');
+                updateWishlistCounter();
+                if (isWishlistMode) showAllProducts();
+            }
+            
+            // Phần logic nạp lại dữ liệu giữ nguyên như cũ...
+            isResetting = true;
+            const btn = document.querySelector('button[onclick="resetData()"]');
+            const originalHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> <span class="text-[10px] md:text-xs">Đang nạp...</span>';
+
+            try {
+                filters = { price: [], percent: [], stock: [], time: [], exclude: [] };
+                document.getElementById('searchInput').value = '';
+                document.getElementById('shop-select').value = '';
+                updateFilterUI();
+                await init();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } finally {
+                let cooldown = 5;
+                const timer = setInterval(() => {
+                    btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> <span class="text-[10px] md:text-xs">Chờ ${cooldown}s</span>`;
+                    cooldown--;
+                    if (cooldown < 0) {
+                        clearInterval(timer);
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                        isResetting = false;
+                    }
+                }, 1000);
+            }
+        }
+
+        function updateTimers() {
+            const now = new Date();
+            const limit = currentPage * perPage;
+            const items = filteredProducts.slice(0, limit);
+
+            items.forEach((item, index) => {
+                const card = document.getElementById(`prod-${index}`);
+                if (!card) return;
+
+                const [day, month] = item.sale_date.split('/').map(Number);
+                const [hour, minute] = item.sale_slot.split(':').map(Number);
+                const saleTime = new Date(now.getFullYear(), month - 1, day, hour, minute);
+
+                const isNotStarted = now < saleTime;
+                const soldCount = item.sold || 0;
+                const totalStock = item.amount || 0;
+                const remaining = totalStock - soldCount;
+                const isOutOfStock = remaining <= 0;
+
+                const textEl = card.querySelector('.countdown-text');
+                const barEl = card.querySelector('.progress-bar-fill');
+                const badgeEl = card.querySelector('.badge-slot');
+                const buyBtn = card.querySelector('.buy-btn');
+
+                let statusText = "";
+                let barWidth = "0%";
+
+                if (isNotStarted) {
+                    const diff = saleTime - now;
+                    const h = Math.floor(diff / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+                    statusText = `MỞ BÁN SAU: ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+                    barWidth = "0%";
+                    barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-indigo-500/50";
+                    badgeEl.className = "badge-slot bg-amber-500 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg";
+                    buyBtn.innerText = "THÊM GIỎ SẴN";
+                } else {
+                    if (isOutOfStock) {
+                        statusText = "HẾT HÀNG";
+                        barWidth = "100%";
+                        card.classList.add('brightness-[0.3]', 'grayscale-[0.2]');
+                    } else {
+                        statusText = remaining <= 10 ? `CHỈ CÒN: ${remaining}` : `ĐÃ BÁN: ${soldCount}`;
+                        barWidth = Math.min((soldCount / totalStock) * 100, 100) + '%';
+                        card.classList.remove('brightness-[0.3]', 'grayscale-[0.2]');
+                    }
+                    barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600";
+                    badgeEl.className = "badge-slot bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg";
+                    buyBtn.innerText = "MUA NGAY";
+                }
+                if (textEl.innerText !== statusText) textEl.innerText = statusText;
+                if (barEl.style.width !== barWidth) barEl.style.width = barWidth;
+            });
+        }
+        setInterval(updateTimers, 1000);
+
+        function toggleGuide() {
+            const modal = document.getElementById('guide-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('guide-modal');
+            if (event.target == modal) toggleGuide();
+        }
     </script>
-    <button onclick="toggleGuide()" 
-        class="fixed bottom-6 right-6 z-[60] w-12 h-12 md:w-14 md:h-14 bg-indigo-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all animate-slow-bounce">
-    <i class="fa-solid fa-circle-question text-xl md:text-2xl"></i>
-</button>
 
-<div id="guide-modal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
-    <div class="glass max-w-lg w-full rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl border border-indigo-500/30">
-        <button onclick="toggleGuide()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
-            <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
+    <button onclick="toggleGuide()" class="fixed bottom-6 right-6 z-[60] w-12 h-12 md:w-14 md:h-14 bg-indigo-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all animate-slow-bounce">
+        <i class="fa-solid fa-circle-question text-xl md:text-2xl"></i>
+    </button>
 
-        <div class="space-y-6">
-            <div class="text-center">
-                <h2 class="text-xl md:text-2xl font-black shopee-gradient-text uppercase italic tracking-tighter">
-                    Mẹo Săn Deal 1K/9K
-                </h2>
-                <div class="h-1 w-20 bg-indigo-500 mx-auto mt-2 rounded-full"></div>
-            </div>
-
-            <div class="space-y-4 text-sm md:text-base text-slate-300">
-                <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">1</div>
-                    <p><strong>Chọn Deal ngon:</strong> Sử dụng bộ lọc hoặc tìm kiếm để chọn đúng món bạn cần.</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">2</div>
-                    <p><strong>Nhấn "Mua ngay" hoặc "Thêm giỏ sẵn":</strong> Hệ thống sẽ tự đưa bạn qua ứng dụng Shopee, bạn thêm giỏ món cần săn</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">3</div>
-                    <p><strong>Chuẩn bị thanh toán:</strong> Khi gần đến giờ sale, hãy để ở màn hình thanh toán</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">4</div>
-                    <p><strong>Bật/tắt xu đúng giờ sale:</strong> Khi gần đến đúng giờ sale, hãy bật xu (hoặc bạn có thể bật xu sẵn rồi đến giờ thì tắt xu). Khi bật/tắt xu đúng giờ sale, giá sẽ tự động về đúng giá sale.</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">5</div>
-                    <p><strong>Đặt hàng:</strong> Nếu thấy về đúng giá, hãy nhanh tay <strong>Đặt hàng</strong> nhé!</p>
-                </div>
-                <div class="bg-indigo-500/10 p-4 rounded-2xl border border-indigo-500/20 text-xs italic text-indigo-300">
-                    <i class="fa-solid fa-clock mr-1"></i> Lưu ý: Các deal 1K thường hết rất nhanh, hãy thêm sẵn vào giỏ hàng nha!
-                </div>
-            </div>
-
-            <button onclick="toggleGuide()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-2xl transition-all shadow-lg active:scale-95">
-                ĐÃ HIỂU, SĂN SALE THÔI!
+    <div id="guide-modal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
+        <div class="glass max-w-lg w-full rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl border border-indigo-500/30">
+            <button onclick="toggleGuide()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
             </button>
+            <div class="space-y-6">
+                <div class="text-center">
+                    <h2 class="text-xl md:text-2xl font-black shopee-gradient-text uppercase italic tracking-tighter">Mẹo Săn Deal 1K/9K</h2>
+                    <div class="h-1 w-20 bg-indigo-500 mx-auto mt-2 rounded-full"></div>
+                </div>
+                <div class="space-y-4 text-sm md:text-base text-slate-300">
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">1</div>
+                        <p><strong>Chọn Deal ngon:</strong> Sử dụng bộ lọc hoặc tìm kiếm để chọn đúng món bạn cần.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">2</div>
+                        <p><strong>Nhấn "Mua ngay" hoặc "Thêm giỏ sẵn":</strong> Hệ thống sẽ tự đưa bạn qua ứng dụng Shopee, bạn thêm giỏ món cần săn</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">3</div>
+                        <p><strong>Chuẩn bị thanh toán:</strong> Khi gần đến giờ sale, hãy để ở màn hình thanh toán</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">4</div>
+                        <p><strong>Bật/tắt xu đúng giờ sale:</strong> Khi gần đến đúng giờ sale, hãy bật xu (hoặc bạn có thể bật xu sẵn rồi đến giờ thì tắt xu). Khi bật/tắt xu đúng giờ sale, giá sẽ tự động về đúng giá sale.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">5</div>
+                        <p><strong>Đặt hàng:</strong> Nếu thấy về đúng giá, hãy nhanh tay <strong>Đặt hàng</strong> nhé!</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">❤️</div>
+                        <p><strong>Tính năng "Yêu thích":</strong> Nhấn vào nút ❤️để thích sản phẩm của bạn và sẽ được lưu qua tab "Yêu thích", nhấn "Reset" để xóa danh sách yêu thích</p>
+                    </div>
+                    <div class="bg-indigo-500/10 p-4 rounded-2xl border border-indigo-500/20 text-xs italic text-indigo-300">
+                        <i class="fa-solid fa-clock mr-1"></i> Lưu ý: Các deal 1K thường hết rất nhanh, hãy thêm sẵn vào giỏ hàng nha!
+                    </div>
+                </div>
+                <button onclick="toggleGuide()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-2xl transition-all shadow-lg active:scale-95">ĐÃ HIỂU, SĂN SALE THÔI!</button>
+            </div>
+        </div>
+    </div>
+    <div id="confirm-modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4 bg-slate-950/60 backdrop-blur-sm transition-all">
+    <div class="glass max-w-sm w-full rounded-3xl p-6 shadow-2xl border border-white/10 transform transition-all scale-95 opacity-0 duration-300" id="confirm-box">
+        <div class="text-center space-y-4">
+            <div class="w-16 h-16 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto">
+                <i class="fa-solid fa-trash-can text-indigo-400 text-2xl"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h3 class="text-white font-bold text-lg tracking-tight">Xác nhận xóa?</h3>
+                <p class="text-slate-400 text-sm leading-relaxed" id="confirm-msg">Bạn muốn xóa toàn bộ danh sách yêu thích đã cài đặt?</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button onclick="closeConfirmModal(false)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-2xl transition-all text-xs uppercase tracking-widest">
+                    Hủy bỏ
+                </button>
+                <button onclick="closeConfirmModal(true)" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-2xl transition-all text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20">
+                    Đồng ý
+                </button>
+            </div>
         </div>
     </div>
 </div>
