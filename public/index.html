@@ -442,7 +442,7 @@
 
         async function copyLink(url, btn) {
     const oldText = btn.innerText;
-    btn.innerText = 'ĐANG LẤY...'; // Trạng thái chờ xử lý
+    btn.innerText = 'ĐANG LẤY...';
     btn.disabled = true;
 
     try {
@@ -454,16 +454,13 @@
         });
         
         const data = await response.json();
-        const finalLink = data.shortLink || url; // Ưu tiên link s.shopee.vn
+        const finalLink = data.shortLink || url; // Ưu tiên link rút gọn s.shopee.vn
 
-        // Thực hiện copy link cuối cùng
         await navigator.clipboard.writeText(finalLink);
-        
         btn.innerText = 'XONG!';
         btn.classList.add('bg-emerald-600');
     } catch (e) {
-        console.error("Lỗi kết nối Server:", e);
-        navigator.clipboard.writeText(url);
+        navigator.clipboard.writeText(url); // Dự phòng link dài nếu lỗi
         btn.innerText = 'ĐÃ COPY';
     } finally {
         setTimeout(() => {
