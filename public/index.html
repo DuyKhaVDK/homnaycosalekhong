@@ -440,12 +440,39 @@
             });
         }
 
-        function copyLink(url, btn) {
-            navigator.clipboard.writeText(url).then(() => {
-                const old = btn.innerText; btn.innerText = 'XONG!';
-                setTimeout(() => btn.innerText = old, 1500);
-            });
-        }
+        async function copyLink(url, btn) {
+    const oldText = btn.innerText;
+    btn.innerText = 'ĐANG LẤY...'; // Trạng thái chờ xử lý
+    btn.disabled = true;
+
+    try {
+        // Gửi link dài lên Server Render để tra cứu & rút gọn
+        const response = await fetch('https://homnaycosalekhong.onrender.com/api/get-short-link', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ longUrl: url })
+        });
+        
+        const data = await response.json();
+        const finalLink = data.shortLink || url; // Ưu tiên link s.shopee.vn
+
+        // Thực hiện copy link cuối cùng
+        await navigator.clipboard.writeText(finalLink);
+        
+        btn.innerText = 'XONG!';
+        btn.classList.add('bg-emerald-600');
+    } catch (e) {
+        console.error("Lỗi kết nối Server:", e);
+        navigator.clipboard.writeText(url);
+        btn.innerText = 'ĐÃ COPY';
+    } finally {
+        setTimeout(() => {
+            btn.innerText = oldText;
+            btn.classList.remove('bg-emerald-600');
+            btn.disabled = false;
+        }, 1500);
+    }
+}
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         init();
