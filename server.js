@@ -11,8 +11,8 @@ app.use(express.json()); // BẮT BUỘC để đọc dữ liệu từ nút Copy
 const port = process.env.PORT || 3000;
 
 // CẤU HÌNH SHOPEE
-const APP_ID = '17301060084'; 
-const API_SECRET = '2OI7GNRRDK7VDMZRU3AYQ7RPPAPN4VBK'; // Thay bằng Secret Key thật của bạn
+const APP_ID = process.env.SHOPEE_APP_ID; 
+const API_SECRET = process.env.SHOPEE_API_SECRET;
 const AFFILIATE_ID = process.env.SHOPEE_AFFILIATE_ID || '17301060084';
 const GRAPHQL_ENDPOINT = 'https://open-api.affiliate.shopee.vn/graphql';
 
