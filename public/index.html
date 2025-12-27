@@ -192,6 +192,7 @@
             } catch (e) { console.error(e); }
         }
 
+        // --- CÁC HÀM LỌC & SẮP XẾP ---
         function getPriceTier(price) {
             if (price <= 2000) return 1000;
             if (price <= 10000) return 9000;
@@ -214,7 +215,8 @@
         function applyFilters() {
             const searchVal = (document.getElementById('searchInput').value || "").toLowerCase();
             const selectedShop = document.getElementById('shop-select').value;
-            const sortType = document.getElementById('sort-select').value;
+            const sortSelect = document.getElementById('sort-select');
+            const sortType = sortSelect.value;
 
             const generalFiltered = allProducts.filter(item => {
                 const titleMatch = (item.title || "").toLowerCase().includes(searchVal);
@@ -234,8 +236,11 @@
             document.getElementById('count-all').innerText = generalFiltered.length;
             filteredProducts = isWishlistMode ? generalFiltered.filter(item => wishlist.some(w => w.link === item.link)) : generalFiltered;
             
+            // LOGIC SẮP XẾP ĐẦY ĐỦ
             if (sortType === 'random') {
                 filteredProducts.sort(() => Math.random() - 0.5);
+                // FIX LỖI "CHỈ NHẤN ĐƯỢC 1 LẦN": Trả về Mặc định sau 100ms để có thể chọn lại Ngẫu nhiên
+                setTimeout(() => { sortSelect.value = 'default'; }, 100);
             } else if (sortType === 'price-asc') {
                 filteredProducts.sort((a, b) => a.price - b.price);
             } else if (sortType === 'price-desc') {
@@ -257,6 +262,7 @@
             });
         }
 
+        // --- COPY MOBILE CHUẨN ---
         async function copyLink(url, btn) {
             const oldText = btn.innerText; btn.innerText = 'ĐANG LẤY...'; btn.disabled = true;
             if (navigator.clipboard && window.ClipboardItem) {
@@ -275,6 +281,7 @@
             document.body.removeChild(textArea); btn.innerText = 'XONG!'; setTimeout(() => { btn.innerText = oldText; btn.disabled = false; }, 1500);
         }
 
+        // --- YÊU THÍCH ---
         function updateWishlistCounter() { document.getElementById('wishlist-count').innerText = wishlist.length; }
         function toggleWishlist(item, event) {
             event.preventDefault(); event.stopPropagation();
@@ -291,6 +298,7 @@
             else { wishBtn.classList.remove('active-wish'); allBtn.classList.replace('text-slate-500', 'text-indigo-400'); }
         }
 
+        // --- GIAO DIỆN & TIỆN ÍCH ---
         function setupFilters() { 
             const slots = [...new Set(allProducts.map(i => i.sale_slot))].filter(Boolean).sort();
             document.getElementById('time-tags').innerHTML = slots.map(s => `<button onclick="toggleMultiFilter('time', '${s}')" class="filter-chip px-4 py-2 rounded-xl text-xs whitespace-nowrap" data-type="time" data-val="${s}">${s}</button>`).join('');
