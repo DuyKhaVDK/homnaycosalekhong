@@ -6,14 +6,14 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors());
-app.use(express.json()); // Bắt buộc để đọc dữ liệu từ nút Copy
+app.use(express.json()); // BẮT BUỘC để đọc dữ liệu từ nút Copy
 
 const port = process.env.PORT || 3000;
 
 // CẤU HÌNH SHOPEE
-const AFFILIATE_ID = process.env.SHOPEE_AFFILIATE_ID || '17301060084';
 const APP_ID = '17301060084'; 
-const API_SECRET = '2OI7GNRRDK7VDMZRU3AYQ7RPPAPN4VBK'; // Dán Secret thật của bạn vào đây
+const API_SECRET = '2OI7GNRRDK7VDMZRU3AYQ7RPPAPN4VBK'; // Thay bằng Secret Key thật của bạn
+const AFFILIATE_ID = process.env.SHOPEE_AFFILIATE_ID || '17301060084';
 const GRAPHQL_ENDPOINT = 'https://open-api.affiliate.shopee.vn/graphql';
 
 let urlMapping = {}; // RAM Mapping: Link dài an_redir -> Link Shopee sạch
@@ -24,6 +24,7 @@ function createUniversalLink(originUrl) {
     return `https://shope.ee/an_redir?origin_link=${encodedUrl}&affiliate_id=${AFFILIATE_ID}&sub_id=websitedeal1k`;
 }
 
+// 1. API LẤY DEALS: LẬP BẢN ĐỒ TRA CỨU
 app.get('/api/deals', async (req, res) => {
     try {
         const rawResponse = await axios.get('https://addlivetag.com/api/data_dealxk.php', {
@@ -31,22 +32,22 @@ app.get('/api/deals', async (req, res) => {
         });
         const products = rawResponse.data;
 
-        const processedProducts = products.map(item => {
+        products.forEach(item => {
             const longLink = createUniversalLink(item.link);
-            // TRA CỨU NGƯỢC: Lưu link gốc sạch vào RAM
-            urlMapping[longLink] = item.link.split('?')[0]; 
-            return { ...item, link: longLink };
+            urlMapping[longLink] = item.link.split('?')[0]; // Lưu link sạch
         });
 
+        const processedProducts = products.map(item => ({
+            ...item,
+            link: createUniversalLink(item.link)
+        }));
         res.json(processedProducts);
-    } catch (err) {
-        res.status(500).json({ error: "Lỗi Server" });
-    }
+    } catch (err) { res.status(500).json({ error: "Lỗi Server" }); }
 });
 
+// 2. API RÚT GỌN LINK: TRA CỨU TỪ RAM
 app.post('/api/get-short-link', async (req, res) => {
     const { longUrl } = req.body;
-    // Tìm link gốc từ RAM (Theo ý tưởng của Kha)
     let cleanUrl = urlMapping[longUrl] || longUrl.split('?')[0];
 
     if (linkCache[cleanUrl]) return res.json({ shortLink: linkCache[cleanUrl] });
@@ -67,13 +68,10 @@ app.post('/api/get-short-link', async (req, res) => {
             }
         });
 
-        if (response.data.errors) return res.json({ shortLink: req.body.longUrl });
         const shortLink = response.data.data.generateShortLink.shortLink;
         linkCache[cleanUrl] = shortLink;
         res.json({ shortLink });
-    } catch (error) {
-        res.json({ shortLink: req.body.longUrl });
-    }
+    } catch (error) { res.json({ shortLink: req.body.longUrl }); }
 });
 
-app.listen(port, () => console.log(`🚀 Server Duy Kha live tại port ${port}`));
+app.listen(port, () => console.log(`🚀 Server live tại port ${port}`));
