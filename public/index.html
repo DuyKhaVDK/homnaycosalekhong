@@ -163,14 +163,29 @@
                     placeholder="Tìm tên sản phẩm hoặc shop..." 
                     class="w-full glass bg-slate-900/40 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all">
             </div>
-            <button onclick="shuffleData()" class="glass px-8 py-4 rounded-2xl hover:bg-white/10 text-slate-300 font-bold text-sm flex items-center justify-center gap-2">
-                <i class="fa-solid fa-shuffle"></i> NGẪU NHIÊN
-            </button>
+            
         </div>
 
-        <div class="flex items-center justify-between mb-4 md:mb-6 px-2">
-            <span class="text-indigo-400 font-bold text-xs tracking-widest">TẤT CẢ: <span id="count-all" class="ml-1 text-slate-200">0</span></span>
-        </div>
+<div class="flex items-center justify-between mb-4 md:mb-6 px-2">
+    <span class="text-indigo-400 font-bold text-xs tracking-widest uppercase">
+        TẤT CẢ: <span id="count-all" class="ml-1 text-slate-200">0</span>
+    </span>
+    
+    <div class="flex items-center gap-2">
+        <span class="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest">SẮP XẾP</span>
+        <select id="sort-select" onchange="applyFilters()" 
+                class="bg-transparent text-slate-400 text-[10px] md:text-xs font-bold outline-none cursor-pointer hover:text-indigo-400 transition-colors uppercase tracking-widest">
+            <option value="default" class="bg-slate-900">Mặc định</option>
+            <option value="random" class="bg-slate-900">Ngẫu nhiên</option>
+            <option value="price-asc" class="bg-slate-900">Giá: Thấp - Cao</option>
+            <option value="price-desc" class="bg-slate-900">Giá: Cao - Thấp</option>
+            <option value="discount-desc" class="bg-slate-900">Giảm sâu nhất</option>
+            <option value="sold-desc" class="bg-slate-900">Bán chạy nhất</option>
+        </select>
+    </div>
+</div>
+</div>
+</div>
 
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6"></div>
 
@@ -251,30 +266,52 @@
             applyFilters();
         }
 
-        function applyFilters() {
-            const searchVal = document.getElementById('searchInput').value.trim().toLowerCase();
-            const selectedShop = document.getElementById('shop-select').value;
+function applyFilters() {
+    const searchVal = document.getElementById('searchInput').value.toLowerCase();
+    const selectedShop = document.getElementById('shop-select').value;
+    const sortSelect = document.getElementById('sort-select'); // Lấy phần tử select
+    const sortType = sortSelect.value;
 
-            filteredProducts = allProducts.filter(item => {
-                const title = item.title?.toLowerCase() || '';
-                const shop = item.shop_name?.toLowerCase() || '';
-                const itemTier = getPriceTier(item.price);
+    // 1. Lọc sản phẩm theo tìm kiếm và shop
+    filteredProducts = allProducts.filter(item => {
+        if (searchVal && !item.title.toLowerCase().includes(searchVal)) return false;
+        if (selectedShop && item.shop_name !== selectedShop) return false;
+        if (filters.time.length > 0 && !filters.time.includes(item.sale_slot)) return false;
+        
+        // Giữ lại bộ lọc deal nhanh của bạn
+        const itemTier = getPriceTier(item.price);
+        if (filters.price.length > 0 && !filters.price.includes(itemTier)) return false;
+        
+        return true;
+    });
 
-                if (searchVal && !title.includes(searchVal) && !shop.includes(searchVal)) return false;
-                if (selectedShop && item.shop_name !== selectedShop) return false;
-                if (filters.price.length > 0 && !filters.price.includes(itemTier)) return false;
-                if (filters.exclude.includes(itemTier)) return false;
-                if (filters.percent.length > 0 && item.percent < Math.min(...filters.percent)) return false;
-                if (filters.stock.length > 0 && item.amount < Math.min(...filters.stock)) return false;
-                if (filters.time.length > 0 && !filters.time.includes(item.sale_slot)) return false;
-                return true;
-            });
+    // 2. Xử lý Sắp xếp
+    if (sortType === 'random') {
+        // Xáo trộn mảng
+        filteredProducts.sort(() => Math.random() - 0.5);
+        
+        // MẸO QUAN TRỌNG: Trả về "Mặc định" sau 100ms để có thể nhấn lại lần nữa
+        setTimeout(() => {
+            sortSelect.value = 'default';
+        }, 500);
+    } 
+    else if (sortType === 'price-asc') {
+        filteredProducts.sort((a, b) => a.price - b.price);
+    } 
+    else if (sortType === 'price-desc') {
+        filteredProducts.sort((a, b) => b.price - a.price);
+    } 
+    else if (sortType === 'discount-desc') {
+        filteredProducts.sort((a, b) => b.percent - a.percent);
+    } 
+    else if (sortType === 'sold-desc') {
+        filteredProducts.sort((a, b) => (b.sold || 0) - (a.sold || 0));
+    }
 
-            document.getElementById('count-all').innerText = filteredProducts.length;
-            currentPage = 1;
-            renderUI();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    document.getElementById('count-all').innerText = filteredProducts.length;
+    currentPage = 1;
+    renderUI();
+}
 
         function renderUI() {
     const grid = document.getElementById('product-grid');
@@ -288,9 +325,7 @@
     }
 
     const html = items.map((item, index) => {
-        // ID duy nhất cho từng sản phẩm để cập nhật sau này
         const productId = `prod-${index}`;
-        
         return `
         <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group shadow-lg relative transition-all duration-500" id="${productId}">
             <div class="relative overflow-hidden">
@@ -312,13 +347,15 @@
                 <div class="flex items-center gap-2 mb-3 flex-wrap">
                     <span class="text-[16px] md:text-[19px] font-extrabold text-indigo-400 leading-none">${item.price.toLocaleString()}đ</span>
                     <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">SL: ${item.amount}</span>
+                    
+                    <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70 w-full mt-[-4px]">
+                        ${item.original_price ? item.original_price.toLocaleString() + 'đ' : ''}
+                    </span>
                 </div>
 
                 <div class="relative w-full h-4 bg-slate-700/50 rounded-full overflow-hidden mb-4 border border-white/5">
-                    <div class="progress-bar-fill absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-500"></div>
-                    <div class="countdown-text absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter">
-                        ĐANG TẢI...
-                    </div>
+                    <div class="progress-bar-fill absolute top-0 left-0 h-full transition-all duration-500"></div>
+                    <div class="countdown-text absolute inset-0 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-tighter">ĐANG TẢI...</div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 mt-auto">
@@ -331,7 +368,6 @@
     }).join('');
 
     grid.innerHTML = html;
-    // Sau khi vẽ xong khung, chạy hàm cập nhật thời gian ngay lập tức
     updateTimers();
 }
 
@@ -345,8 +381,6 @@
                 else btn.classList.remove('active');
             });
         }
-
-        function shuffleData() { allProducts.sort(() => Math.random() - 0.5); applyFilters(); }
         function copyLink(url, btn) {
             navigator.clipboard.writeText(url).then(() => {
                 const old = btn.innerText; btn.innerText = 'XONG!';
