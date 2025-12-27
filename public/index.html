@@ -441,37 +441,59 @@
         }
 
         // Cập nhật hàm copyLink để tương thích Mobile
+// Tự động nhận diện địa chỉ Server
+const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://homnaycosalekhong.onrender.com';
+
 async function copyLink(url, btn) {
     const oldText = btn.innerText;
     btn.innerText = 'ĐANG LẤY...';
     btn.disabled = true;
 
-    try {
-        // 1. Gọi Server rút gọn link
-        const response = await fetch('https://homnaycosalekhong.onrender.com/api/get-short-link', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ longUrl: url })
+    // GIẢI PHÁP CHO MOBILE: Dùng ClipboardItem với Promise
+    // Cách này giúp trình duyệt hiểu hành động copy được cấp quyền ngay từ lúc click
+    if (navigator.clipboard && window.ClipboardItem) {
+        const item = new ClipboardItem({
+            "text/plain": fetch(`${BASE_URL}/api/get-short-link`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ longUrl: url })
+            })
+            .then(res => res.json())
+            .then(data => data.shortLink || url)
+            .then(text => new Blob([text], { type: "text/plain" }))
         });
-        
-        const data = await response.json();
-        const finalLink = data.shortLink || url;
 
-        // 2. Sử dụng hàm Copy mạnh mẽ cho Mobile
-        await forceCopy(finalLink);
-        
-        btn.innerText = 'XONG!';
-        btn.classList.add('bg-emerald-600');
-    } catch (e) {
-        forceCopy(url);
-        btn.innerText = 'ĐÃ COPY';
-    } finally {
+        navigator.clipboard.write([item]).then(() => {
+            btn.innerText = 'XONG!';
+            btn.classList.add('bg-emerald-600');
+            finish();
+        }).catch(() => {
+            // Fallback nếu trình duyệt cũ không hỗ trợ ClipboardItem
+            handleLegacyCopy(url, btn);
+        });
+    } else {
+        handleLegacyCopy(url, btn);
+    }
+
+    function finish() {
         setTimeout(() => {
             btn.innerText = oldText;
             btn.classList.remove('bg-emerald-600');
             btn.disabled = false;
         }, 1500);
     }
+}
+
+// Hàm dự phòng cho các trình duyệt đời cũ
+function handleLegacyCopy(url, btn) {
+    const oldText = btn.innerText;
+    navigator.clipboard.writeText(url).then(() => {
+        btn.innerText = 'XONG!';
+        setTimeout(() => {
+            btn.innerText = oldText;
+            btn.disabled = false;
+        }, 1500);
+    });
 }
 
 // Hàm hỗ trợ copy vượt rào cản Mobile
