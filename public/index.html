@@ -42,7 +42,7 @@
                     <img src="logomain.png" alt="Logo" class="w-full h-full object-cover rounded-xl shadow-lg border border-white/20">
                 </div>
                 <div class="flex flex-col justify-center">
-                    <h1 class="font-extrabold text-sm md:text-lg shopee-gradient-text uppercase py-1">HÔM NAY CÓ SALE KHÔNG?</h1>
+                    <h1 class="font-extrabold text-sm md:text-lg shopee-gradient-text uppercase py-1 leading-tight">HÔM NAY CÓ SALE KHÔNG?</h1>
                     <p id="clock" class="text-[9px] md:text-[10px] font-mono text-slate-400">00:00:00</p>
                 </div>
             </a>
@@ -55,48 +55,63 @@
 
     <main class="max-w-7xl mx-auto px-4">
         <div class="glass rounded-3xl p-4 mb-3 md:p-5 md:mb-6 shadow-2xl">
-            <div class="space-y-4">
+            <div class="space-y-4 md:space-y-6">
                 <div class="flex flex-col gap-3">
-                    <label class="text-xs font-bold text-slate-400 uppercase flex items-center gap-2"><i class="fa-solid fa-filter text-indigo-400"></i> Lọc nhanh</label>
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-filter text-indigo-400"></i> Bộ lọc Deal nhanh
+                    </label>
                     <div class="flex flex-wrap gap-2">
-                        <button onclick="toggleMultiFilter('price', 1000)" class="filter-chip px-4 py-2 rounded-xl text-sm" data-type="price" data-val="1000">1K</button>
-                        <button onclick="toggleMultiFilter('price', 9000)" class="filter-chip px-4 py-2 rounded-xl text-sm" data-type="price" data-val="9000">9K</button>
-                        <button onclick="toggleMultiFilter('percent', 50)" class="filter-chip px-4 py-2 rounded-xl text-xs" data-type="percent" data-val="50">> 50%</button>
+                        <button onclick="toggleMultiFilter('price', 1000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="1000">Deal 1K</button>
+                        <button onclick="toggleMultiFilter('price', 9000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="9000">Deal 9K</button>
+                        <button onclick="toggleMultiFilter('price', 29000)" class="filter-chip px-4 py-2 rounded-xl text-sm font-medium" data-type="price" data-val="29000">Deal 29K</button>
+                        <div class="w-px h-6 bg-white/10 mx-1 hidden md:block"></div>
+                        <button onclick="toggleMultiFilter('percent', 50)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="percent" data-val="50">> 50% Giảm</button>
+                        <button onclick="toggleMultiFilter('percent', 90)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="percent" data-val="90">> 90% Giảm</button>
+                        <button onclick="toggleMultiFilter('stock', 100)" class="filter-chip px-4 py-2 rounded-xl text-xs font-medium" data-type="stock" data-val="100">> 100 SLOTS</button>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-white/5">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-400 uppercase">Khung giờ</label>
-                        <div id="time-tags" class="flex gap-2 overflow-x-auto pb-1 hide-scroll"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-3 border-t border-white/5">
+                    <div class="space-y-3">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-red-400">Ẩn nhóm giá</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="toggleExclude(1000)" class="filter-chip border-red-500/30 px-4 py-2 rounded-xl text-xs" data-ex="1000">Ẩn 1K</button>
+                            <button onclick="toggleExclude(9000)" class="filter-chip border-red-500/30 px-4 py-2 rounded-xl text-xs" data-ex="9000">Ẩn 9K</button>
+                        </div>
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-400 uppercase">Shop</label>
-                        <select id="shop-select" onchange="applyFilters()" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs outline-none">
-                            <option value="">Tất cả shop</option>
-                        </select>
+                    <div class="space-y-3 min-w-0">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Khung giờ sale</label>
+                        <div class="flex flex-col md:flex-row md:items-center gap-3">
+                            <div id="time-tags" class="flex-1 flex gap-2 overflow-x-auto pb-1 hide-scroll min-w-0"></div>
+                            <div class="w-full md:w-44 flex-shrink-0">
+                                <select id="shop-select" onchange="applyFilters()" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-indigo-500">
+                                    <option value="">Tất cả shop</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-3 md:mb-6">
             <div class="relative">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Tìm tên sản phẩm hoặc shop..." class="w-full glass bg-slate-900/40 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50">
+                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Tìm tên sản phẩm hoặc shop..." class="w-full glass bg-slate-900/40 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all">
             </div>
         </div>
 
-        <div class="flex items-center justify-between mb-4 px-2">
+        <div class="flex items-center justify-between mb-4 md:mb-6 px-2 gap-2">
             <div class="flex items-center gap-3">
-                <button onclick="showAllProducts()" id="all-btn" class="text-indigo-400 font-bold text-[10px] md:text-xs uppercase tracking-widest">
+                <button onclick="showAllProducts()" id="all-btn" class="text-indigo-400 font-bold text-[10px] md:text-xs tracking-widest uppercase transition-all">
                     TẤT CẢ: <span id="count-all" class="ml-1 text-slate-200">0</span>
                 </button>
                 <span class="text-white/10">|</span>
-                <button onclick="toggleWishlistFilter()" id="wishlist-filter-btn" class="text-slate-500 font-bold text-[10px] md:text-xs uppercase tracking-widest flex items-center gap-1.5 transition-all">
+                <button onclick="toggleWishlistFilter()" id="wishlist-filter-btn" class="flex items-center gap-1.5 text-slate-500 font-bold text-[10px] md:text-xs tracking-widest uppercase transition-all group">
                     <i class="fa-solid fa-heart"></i> YÊU THÍCH: <span id="wishlist-count" class="ml-0.5 text-slate-200">0</span>
                 </button>
             </div>
-            <select id="sort-select" onchange="applyFilters()" class="bg-transparent text-slate-400 text-[10px] md:text-xs font-bold uppercase outline-none">
+            <select id="sort-select" onchange="applyFilters()" class="bg-transparent text-slate-400 text-[10px] md:text-xs font-bold outline-none uppercase tracking-widest">
                 <option value="default" class="bg-slate-900">Mặc định</option>
                 <option value="price-asc" class="bg-slate-900">Giá thấp</option>
                 <option value="discount-desc" class="bg-slate-900">Giảm sâu</option>
@@ -110,22 +125,40 @@
         </div>
     </main>
 
-    <button onclick="toggleGuide()" class="fixed bottom-6 right-6 z-[60] w-12 h-12 md:w-14 md:h-14 bg-indigo-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all animate-slow-bounce">
+    <button onclick="toggleGuide()" class="fixed bottom-6 right-6 z-[60] w-12 h-12 md:w-14 md:h-14 bg-indigo-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all animate-slow-bounce">
         <i class="fa-solid fa-circle-question text-xl md:text-2xl"></i>
     </button>
 
-    <div id="guide-modal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md">
-        <div class="glass max-w-lg w-full rounded-3xl p-6 md:p-8 relative shadow-2xl border border-indigo-500/30">
+    <div id="guide-modal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
+        <div class="glass max-w-lg w-full rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl border border-indigo-500/30">
             <button onclick="toggleGuide()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div class="space-y-6 text-slate-300 text-sm md:text-base">
                 <div class="text-center"><h2 class="text-xl md:text-2xl font-black shopee-gradient-text uppercase italic">Mẹo Săn Deal 1K/9K</h2></div>
                 <div class="space-y-4">
-                    <div class="flex gap-4"><div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">1</div><p>Sử dụng bộ lọc để chọn món cần săn.</p></div>
-                    <div class="flex gap-4"><div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">2</div><p>Nhấn "MUA" để thêm món vào giỏ hàng Shopee trước.</p></div>
-                    <div class="flex gap-4"><div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">3</div><p>Chờ ở màn hình thanh toán khi gần đến giờ sale.</p></div>
-                    <div class="flex gap-4"><div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">4</div><p>Bật/tắt xu khi đúng giây sale để giá nhảy về 1K/9K.</p></div>
+                    <div class="flex gap-4"><div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">1</div><p>Sử dụng bộ lọc để chọn món cần săn.</p></div>
+                    <div class="flex gap-4"><div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">2</div><p>Nhấn "MUA" để thêm món vào giỏ hàng Shopee trước.</p></div>
+                    <div class="flex gap-4"><div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">3</div><p>Chờ ở màn hình thanh toán khi gần đến giờ sale.</p></div>
+                    <div class="flex gap-4"><div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">4</div><p>Bật/tắt xu khi đúng giây sale để giá nhảy về 1K/9K.</p></div>
                 </div>
-                <button onclick="toggleGuide()" class="w-full bg-indigo-600 font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all">ĐÃ HIỂU!</button>
+                <button onclick="toggleGuide()" class="w-full bg-indigo-600 font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all">ĐÃ HIỂU, SĂN SALE THÔI!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4 bg-slate-950/60 backdrop-blur-sm transition-all">
+        <div class="glass max-w-sm w-full rounded-3xl p-6 shadow-2xl border border-white/10 transform transition-all scale-95 opacity-0 duration-300" id="confirm-box">
+            <div class="text-center space-y-4">
+                <div class="w-16 h-16 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto">
+                    <i class="fa-solid fa-trash-can text-indigo-400 text-2xl"></i>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-white font-bold text-lg tracking-tight">Xác nhận xóa?</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed" id="confirm-msg">Bạn muốn xóa toàn bộ danh sách yêu thích?</p>
+                </div>
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button onclick="closeConfirmModal(false)" class="bg-slate-800 text-slate-300 font-bold py-3 rounded-2xl transition-all text-xs uppercase tracking-widest">Hủy bỏ</button>
+                    <button onclick="closeConfirmModal(true)" class="bg-indigo-600 text-white font-bold py-3 rounded-2xl transition-all text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20">Đồng ý</button>
+                </div>
             </div>
         </div>
     </div>
@@ -140,7 +173,8 @@
         let isWishlistMode = false;
         let currentPage = 1;
         const perPage = 20;
-        let filters = { price: [], percent: [], stock: [], time: [] };
+        let filters = { price: [], percent: [], stock: [], time: [], exclude: [] };
+        let isLoading = false;
 
         async function init() {
             try {
@@ -153,15 +187,71 @@
             } catch (e) { console.error(e); }
         }
 
-        // HƯỚNG DẪN
-        function toggleGuide() {
-            const modal = document.getElementById('guide-modal');
-            modal.classList.toggle('hidden');
-            modal.classList.toggle('flex');
-            document.body.style.overflow = modal.classList.contains('hidden') ? 'auto' : 'hidden';
+        // --- CÁC HÀM LỌC CHUẨN ĐÃ KHÔI PHỤC ---
+        function getPriceTier(price) {
+            if (price <= 2000) return 1000;
+            if (price <= 10000) return 9000;
+            if (price <= 30000) return 29000;
+            return 0;
         }
 
-        // COPY MOBILE
+        function toggleMultiFilter(type, val) {
+            const idx = filters[type].indexOf(val);
+            if (idx > -1) filters[type].splice(idx, 1);
+            else filters[type].push(val);
+            updateFilterUI();
+            applyFilters();
+        }
+
+        function toggleExclude(val) {
+            const idx = filters.exclude.indexOf(val);
+            if (idx > -1) filters.exclude.splice(idx, 1);
+            else filters.exclude.push(val);
+            updateFilterUI();
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const searchVal = (document.getElementById('searchInput').value || "").toLowerCase();
+            const selectedShop = document.getElementById('shop-select').value;
+            const sortType = document.getElementById('sort-select').value;
+
+            const generalFiltered = allProducts.filter(item => {
+                const titleMatch = (item.title || "").toLowerCase().includes(searchVal);
+                const shopMatch = (item.shop_name || "").toLowerCase().includes(searchVal);
+                if (searchVal && !titleMatch && !shopMatch) return false;
+                if (selectedShop && item.shop_name !== selectedShop) return false;
+                if (filters.time.length > 0 && !filters.time.includes(item.sale_slot)) return false;
+                
+                const tier = getPriceTier(item.price);
+                if (filters.price.length > 0 && !filters.price.includes(tier)) return false;
+                if (filters.exclude.includes(tier)) return false;
+                if (filters.percent.length > 0 && !filters.percent.some(p => item.percent >= p)) return false;
+                if (filters.stock.length > 0 && !filters.stock.some(s => item.amount >= s)) return false;
+                
+                return true;
+            });
+
+            document.getElementById('count-all').innerText = generalFiltered.length;
+            filteredProducts = isWishlistMode ? generalFiltered.filter(item => wishlist.some(w => w.link === item.link)) : generalFiltered;
+            
+            if (sortType === 'price-asc') filteredProducts.sort((a, b) => a.price - b.price);
+            else if (sortType === 'discount-desc') filteredProducts.sort((a, b) => b.percent - a.percent);
+
+            currentPage = 1;
+            renderUI();
+        }
+
+        function updateFilterUI() {
+            document.querySelectorAll('.filter-chip').forEach(btn => {
+                const { type, val, ex } = btn.dataset;
+                const isSelected = (type && filters[type].includes(type === 'time' ? val : parseInt(val))) || 
+                                   (ex && filters.exclude.includes(parseInt(ex)));
+                btn.classList.toggle('active', !!isSelected);
+            });
+        }
+
+        // --- COPY MOBILE CHUẨN ---
         async function copyLink(url, btn) {
             const oldText = btn.innerText; btn.innerText = 'ĐANG LẤY...'; btn.disabled = true;
             if (navigator.clipboard && window.ClipboardItem) {
@@ -180,7 +270,13 @@
             document.body.removeChild(textArea); btn.innerText = 'XONG!'; setTimeout(() => { btn.innerText = oldText; btn.disabled = false; }, 1500);
         }
 
-        // YÊU THÍCH
+        // --- CÁC HÀM CÒN LẠI ---
+        function toggleGuide() {
+            const modal = document.getElementById('guide-modal');
+            modal.classList.toggle('hidden'); modal.classList.toggle('flex');
+            document.body.style.overflow = modal.classList.contains('hidden') ? 'auto' : 'hidden';
+        }
+
         function updateWishlistCounter() { document.getElementById('wishlist-count').innerText = wishlist.length; }
         function toggleWishlist(item, event) {
             event.preventDefault(); event.stopPropagation();
@@ -197,26 +293,24 @@
             else { wishBtn.classList.remove('active-wish'); allBtn.classList.replace('text-slate-500', 'text-indigo-400'); }
         }
 
-        // LỌC & TÌM KIẾM
-        function applyFilters() {
-            const searchVal = (document.getElementById('searchInput').value || "").toLowerCase();
-            const selectedShop = document.getElementById('shop-select').value;
-            const sortType = document.getElementById('sort-select').value;
-            const generalFiltered = allProducts.filter(item => {
-                const titleMatch = (item.title || "").toLowerCase().includes(searchVal);
-                const shopMatch = (item.shop_name || "").toLowerCase().includes(searchVal);
-                if (searchVal && !titleMatch && !shopMatch) return false;
-                if (selectedShop && item.shop_name !== selectedShop) return false;
-                if (filters.time.length > 0 && !filters.time.includes(item.sale_slot)) return false;
-                const tier = item.price <= 2000 ? 1000 : (item.price <= 10000 ? 9000 : (item.price <= 30000 ? 29000 : 0));
-                if (filters.price.length > 0 && !filters.price.includes(tier)) return false;
-                return true;
-            });
-            document.getElementById('count-all').innerText = generalFiltered.length;
-            filteredProducts = isWishlistMode ? generalFiltered.filter(item => wishlist.some(w => w.link === item.link)) : generalFiltered;
-            if (sortType === 'price-asc') filteredProducts.sort((a, b) => a.price - b.price);
-            else if (sortType === 'discount-desc') filteredProducts.sort((a, b) => b.percent - a.percent);
-            currentPage = 1; renderUI();
+        function setupFilters() { 
+            const slots = [...new Set(allProducts.map(i => i.sale_slot))].filter(Boolean).sort();
+            document.getElementById('time-tags').innerHTML = slots.map(s => `<button onclick="toggleMultiFilter('time', '${s}')" class="filter-chip px-4 py-2 rounded-xl text-xs whitespace-nowrap" data-type="time" data-val="${s}">${s}</button>`).join('');
+            const shops = [...new Set(allProducts.map(i => i.shop_name))].filter(Boolean).sort();
+            document.getElementById('shop-select').innerHTML = '<option value="">Tất cả shop</option>' + shops.map(s => `<option value="${s}">${s}</option>`).join('');
+        }
+
+        function setupInfiniteScroll() {
+            const trigger = document.getElementById('infinite-scroll-trigger');
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !isLoading && filteredProducts.length > currentPage * perPage) { loadMore(); }
+            }, { threshold: 0.1 });
+            observer.observe(trigger);
+        }
+
+        function loadMore() {
+            isLoading = true; document.getElementById('infinite-scroll-trigger').style.opacity = "1";
+            setTimeout(() => { currentPage++; renderUI(); isLoading = false; document.getElementById('infinite-scroll-trigger').style.opacity = "0"; }, 300);
         }
 
         function renderUI() {
@@ -230,13 +324,13 @@
                     <div class="relative overflow-hidden">
                         <img src="${item.img}" class="w-full aspect-square object-cover transition-all group-hover:scale-110">
                         <div class="absolute top-2 left-2 flex flex-col gap-1.5">
-                            <span class="bg-indigo-600/90 text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-lg">📅 ${item.sale_date}</span>
+                            <span class="bg-indigo-600/90 text-white text-[9px] font-bold px-2 py-1 rounded-lg">📅 ${item.sale_date}</span>
                             <span class="bg-slate-900/80 text-white text-[9px] font-bold px-2 py-1 rounded-lg">⚡ ${item.sale_slot}</span>
                         </div>
                     </div>
                     <div class="p-3 md:p-4 flex flex-col flex-grow">
-                        <a href="${item.link}" target="_blank" class="block mb-2">
-                            <h3 class="text-[11px] md:text-xs font-semibold text-slate-200 line-clamp-2 h-9 group-hover:text-indigo-400 leading-snug">
+                        <a href="${item.link}" target="_blank" class="block mb-2 group/title">
+                            <h3 class="text-[11px] md:text-xs font-semibold text-slate-200 line-clamp-2 h-9 group-hover/title:text-indigo-400 transition-colors leading-snug">
                                 <span class="bg-red-500 text-white text-[9px] px-1 rounded mr-1">-${item.percent}%</span>${item.title}
                             </h3>
                         </a>
@@ -249,9 +343,9 @@
                             <div class="countdown-text absolute inset-0 flex items-center justify-center text-[8px] font-black text-white uppercase">TẢI...</div>
                         </div>
                         <div class="flex gap-1.5 mt-auto">
-                            <a href="${item.link}" target="_blank" class="buy-btn flex-[2] bg-indigo-600 text-white text-[10px] font-bold py-2.5 rounded-xl text-center active:scale-95">MUA</a>
+                            <a href="${item.link}" target="_blank" class="buy-btn flex-[2] bg-indigo-600 text-white text-[10px] font-bold py-2.5 rounded-xl text-center active:scale-95 transition-all truncate px-1">MUA</a>
                             <button onclick='toggleWishlist(${JSON.stringify(item).replace(/'/g, "&apos;")}, event)' class="flex-1 bg-slate-800/50 rounded-xl flex items-center justify-center ${isLiked ? 'text-pink-500' : 'text-slate-400'}"><i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-heart text-xs"></i></button>
-                            <button onclick="copyLink('${item.link}', this)" class="flex-[2] bg-slate-800 text-slate-300 text-[10px] font-bold py-2.5 rounded-xl active:scale-95">COPY</button>
+                            <button onclick="copyLink('${item.link}', this)" class="flex-[2] bg-slate-800 text-slate-300 text-[10px] font-bold py-2.5 rounded-xl active:scale-95 transition-all truncate px-1">COPY</button>
                         </div>
                     </div>
                 </div>`;
@@ -259,17 +353,6 @@
             updateTimers();
         }
 
-        // TIỆN ÍCH
-        function toggleMultiFilter(type, val) { const idx = filters[type].indexOf(val); if (idx > -1) filters[type].splice(idx, 1); else filters[type].push(val); updateFilterUI(); applyFilters(); }
-        function updateFilterUI() { document.querySelectorAll('.filter-chip').forEach(btn => { const { type, val } = btn.dataset; btn.classList.toggle('active', filters[type].includes(type === 'time' ? val : parseInt(val))); }); }
-        function setupFilters() { 
-            const slots = [...new Set(allProducts.map(i => i.sale_slot))].filter(Boolean).sort();
-            document.getElementById('time-tags').innerHTML = slots.map(s => `<button onclick="toggleMultiFilter('time', '${s}')" class="filter-chip px-4 py-2 rounded-xl text-xs whitespace-nowrap" data-type="time" data-val="${s}">${s}</button>`).join('');
-            const shops = [...new Set(allProducts.map(i => i.shop_name))].filter(Boolean).sort();
-            document.getElementById('shop-select').innerHTML = '<option value="">Tất cả shop</option>' + shops.map(s => `<option value="${s}">${s}</option>`).join('');
-        }
-        function setupInfiniteScroll() { const trigger = document.getElementById('infinite-scroll-trigger'); const observer = new IntersectionObserver((entries) => { if (entries[0].isIntersecting && !isLoading && filteredProducts.length > currentPage * perPage) { loadMore(); } }, { threshold: 0.1 }); observer.observe(trigger); }
-        function loadMore() { isLoading = true; document.getElementById('infinite-scroll-trigger').style.opacity = "1"; setTimeout(() => { currentPage++; renderUI(); isLoading = false; document.getElementById('infinite-scroll-trigger').style.opacity = "0"; }, 300); }
         function updateTimers() {
             const now = new Date();
             filteredProducts.slice(0, currentPage * perPage).forEach((item, index) => {
@@ -289,10 +372,42 @@
                 }
             });
         }
+
+        let confirmResolve;
+        function showConfirmModal(msg) {
+            document.getElementById('confirm-msg').innerText = msg;
+            const modal = document.getElementById('confirm-modal');
+            const box = document.getElementById('confirm-box');
+            modal.classList.replace('hidden', 'flex');
+            setTimeout(() => { box.classList.replace('scale-95', 'scale-100'); box.classList.replace('opacity-0', 'opacity-100'); }, 10);
+            return new Promise((resolve) => { confirmResolve = resolve; });
+        }
+        function closeConfirmModal(result) {
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.replace('flex', 'hidden');
+            if (confirmResolve) confirmResolve(result);
+        }
+
+        async function resetData() {
+            if (isResetting) return;
+            if (wishlist.length > 0) {
+                const confirmed = await showConfirmModal("Bạn muốn xóa toàn bộ danh sách yêu thích?");
+                if (!confirmed) return;
+                wishlist = []; localStorage.removeItem('wishlist_v1'); updateWishlistCounter();
+                if (isWishlistMode) showAllProducts();
+            }
+            isResetting = true;
+            const btn = document.querySelector('button[onclick="resetData()"]');
+            const originalHTML = btn.innerHTML; btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>';
+            try { await init(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+            finally { setTimeout(() => { btn.innerHTML = originalHTML; btn.disabled = false; isResetting = false; }, 2000); }
+        }
+
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         setInterval(updateTimers, 1000);
-        async function resetData() { const btn = document.querySelector('button[onclick="resetData()"]'); btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>'; try { await init(); window.scrollTo({ top: 0, behavior: 'smooth' }); } finally { setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> <span class="text-[10px]">Reset</span>'; btn.disabled = false; }, 2000); } }
         init();
+        let isResetting = false;
     </script>
 </body>
 </html>
