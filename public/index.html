@@ -8,41 +8,16 @@
         gtag('js', new Date());
         gtag('config', 'G-PTL6JHZWBD');
     </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HÔM NAY CÓ SALE KHÔNG? - DEAL 1K</title>
     <link rel="icon" type="image/png" href="logomain.png">
     <link rel="apple-touch-icon" href="logomain.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        :root { --bg-body: #0f172a; --bg-card: rgba(30, 41, 59, 0.7); --accent: #6366f1; }
-        body { background-color: var(--bg-body); color: #f1f5f9; font-family: 'Plus Jakarta Sans', sans-serif; background-image: radial-gradient(circle at top right, #1e1b4b, transparent), radial-gradient(circle at bottom left, #1e1b4b, transparent); background-attachment: fixed; }
-        .glass { background: var(--bg-card); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .filter-chip { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.2s ease; cursor: pointer; }
-        .filter-chip.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 15px rgba(99, 102, 241, 0.4); }
-        .product-card { transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.05); }
-        .product-card:hover { transform: translateY(-8px); border-color: var(--accent); }
-        .shopee-gradient-text { background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .loader { width: 40px; height: 40px; border: 4px solid #FFF; border-bottom-color: var(--accent); border-radius: 50%; display: inline-block; animation: rotation 1s linear infinite; }
-        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes slow-bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 10% { transform: translateY(-10px); } }
-        .animate-slow-bounce { animation: slow-bounce 5s infinite; }
-        #wishlist-filter-btn.active-wish { color: #ec4899; }
-        /* Làm đẹp thanh cuộn cho Modal */
-        .custom-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="min-h-screen pb-20">
 
@@ -53,7 +28,7 @@
                     <img src="logomain.png" alt="Logo" class="w-full h-full object-cover rounded-xl shadow-lg border border-white/20">
                 </div>
                 <div class="flex flex-col justify-center">
-                    <h1 class="font-extrabold text-[11px] md:text-lg shopee-gradient-text uppercase py-1 leading-tight">HÔM NAY CÓ SALE KHÔNG? - DEAL 1K</h1>
+                    <h1 class="font-extrabold text-[11px] md:text-lg shopee-gradient-text uppercase py-1 leading-tight">HÔM NAY CÓ SALE KHÔNG?</h1>
                     <p id="clock" class="text-[9px] md:text-[10px] font-mono text-slate-400">00:00:00</p>
                 </div>
             </a>
@@ -126,10 +101,10 @@
             
             <div class="flex items-center gap-1 md:gap-2 flex-shrink-0">
                 <select id="sort-select" onchange="applyFilters()" class="bg-transparent text-slate-400 text-[9px] md:text-xs font-bold outline-none cursor-pointer uppercase tracking-widest">
-                    <option value="default" class="bg-slate-900">LỌC THEO</option>
+                    <option value="default" class="bg-slate-900">MẶC ĐỊNH</option>
                     <option value="random" class="bg-slate-900">NGẪU NHIÊN</option>
-                    <option value="price-asc" class="bg-slate-900">GIÁ THẤP -> CAO</option>
-                    <option value="price-desc" class="bg-slate-900">GIÁ CAO -> THÁP</option>
+                    <option value="price-asc" class="bg-slate-900">GIÁ THẤP</option>
+                    <option value="price-desc" class="bg-slate-900">GIÁ CAO</option>
                     <option value="discount-desc" class="bg-slate-900">GIẢM SÂU</option>
                     <option value="sold-desc" class="bg-slate-900">BÁN CHẠY</option>
                 </select>
@@ -148,18 +123,16 @@
     </button>
 
     <div id="guide-modal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
-    <div class="glass max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scroll rounded-3xl p-6 md:p-8 relative shadow-2xl border border-indigo-500/30">
-        <button onclick="toggleGuide()" class="absolute top-4 right-4 text-slate-400 hover:text-white z-10">
-            <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-        
-        <div class="space-y-6 text-slate-300 text-sm md:text-base">
-            <div class="text-center sticky top-0 bg-transparent pb-2">
-                <h2 class="text-xl md:text-2xl font-black shopee-gradient-text uppercase italic">Mẹo Săn Deal 1K/9K</h2>
-            </div>
-            
-            <div class="space-y-4">
-                <div class="flex gap-4">
+        <div class="glass max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scroll rounded-3xl p-6 md:p-8 relative shadow-2xl border border-indigo-500/30">
+            <button onclick="toggleGuide()" class="absolute top-4 right-4 text-slate-400 hover:text-white z-10">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="space-y-6 text-slate-300 text-sm md:text-base">
+                <div class="text-center sticky top-0 bg-transparent pb-2">
+                    <h2 class="text-xl md:text-2xl font-black shopee-gradient-text uppercase italic">Mẹo Săn Deal 1K/9K</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex gap-4">
                     <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">1</div>
                     <p><strong>Chọn Deal:</strong> Sử dụng bộ lọc hoặc tìm kiếm để chọn món cần săn.</p>
                 </div>
@@ -183,14 +156,11 @@
                     <div class="w-6 h-6 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center flex-shrink-0 font-bold"><i class="fa-solid fa-heart text-[10px]"></i></div>
                     <p><strong>Tính năng "Yêu thích":</strong> Nhấn ❤️ để lưu deal vào tab riêng để theo dõi giờ sale dễ dàng hơn, nhấn "Reset" để xóa danh sách yêu thích.</p>
                 </div>
-            </div>
-            
-            <div class="pt-4 sticky bottom-0 bg-transparent">
-                <button onclick="toggleGuide()" class="w-full bg-indigo-600 font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all">ĐÃ HIỂU, SĂN SALE THÔI!</button>
+                </div>
+                <button onclick="toggleGuide()" class="w-full bg-indigo-600 font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all">SĂN SALE NGAY!</button>
             </div>
         </div>
     </div>
-</div>
 
     <div id="confirm-modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4 bg-slate-950/60 backdrop-blur-sm transition-all">
         <div class="glass max-w-sm w-full rounded-3xl p-6 shadow-2xl border border-white/10 opacity-0 transition-all duration-300 scale-95" id="confirm-box">
@@ -208,207 +178,6 @@
         </div>
     </div>
 
-    <script>
-        const BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname) ? 'http://localhost:3000' : 'https://homnaycosalekhong.onrender.com';
-        const API_URL = `${BASE_URL}/api/deals`;
-
-        let allProducts = [];
-        let filteredProducts = [];
-        let wishlist = JSON.parse(localStorage.getItem('wishlist_v1')) || [];
-        let isWishlistMode = false;
-        let currentPage = 1;
-        const perPage = 20;
-        let filters = { price: [], percent: [], stock: [], time: [], exclude: [] };
-        let isLoading = false;
-
-        async function init() {
-            try {
-                const res = await fetch(API_URL);
-                allProducts = await res.json();
-                updateWishlistCounter();
-                setupFilters();
-                applyFilters();
-                setupInfiniteScroll();
-            } catch (e) { console.error(e); }
-        }
-
-        function getPriceTier(price) {
-            if (price <= 2000) return 1000;
-            if (price <= 10000) return 9000;
-            if (price <= 30000) return 29000;
-            return 0;
-        }
-
-        function toggleMultiFilter(type, val) {
-            const idx = filters[type].indexOf(val);
-            if (idx > -1) filters[type].splice(idx, 1); else filters[type].push(val);
-            updateFilterUI(); applyFilters();
-        }
-
-        function toggleExclude(val) {
-            const idx = filters.exclude.indexOf(val);
-            if (idx > -1) filters.exclude.splice(idx, 1); else filters.exclude.push(val);
-            updateFilterUI(); applyFilters();
-        }
-
-        function applyFilters() {
-            const searchVal = (document.getElementById('searchInput').value || "").toLowerCase();
-            const selectedShop = document.getElementById('shop-select').value;
-            const sortSelect = document.getElementById('sort-select');
-            const sortType = sortSelect.value;
-
-            const generalFiltered = allProducts.filter(item => {
-                const titleMatch = (item.title || "").toLowerCase().includes(searchVal);
-                const shopMatch = (item.shop_name || "").toLowerCase().includes(searchVal);
-                if (searchVal && !titleMatch && !shopMatch) return false;
-                if (selectedShop && item.shop_name !== selectedShop) return false;
-                if (filters.time.length > 0 && !filters.time.includes(item.sale_slot)) return false;
-                
-                const tier = getPriceTier(item.price);
-                if (filters.price.length > 0 && !filters.price.includes(tier)) return false;
-                if (filters.exclude.includes(tier)) return false;
-                if (filters.percent.length > 0 && !filters.percent.some(p => item.percent >= p)) return false;
-                if (filters.stock.length > 0 && !filters.stock.some(s => item.amount >= s)) return false;
-                return true;
-            });
-
-            document.getElementById('count-all').innerText = generalFiltered.length;
-            filteredProducts = isWishlistMode ? generalFiltered.filter(item => wishlist.some(w => w.link === item.link)) : generalFiltered;
-            
-            if (sortType === 'random') {
-                filteredProducts.sort(() => Math.random() - 0.5);
-                setTimeout(() => { sortSelect.value = 'default'; }, 100);
-            } else if (sortType === 'price-asc') filteredProducts.sort((a, b) => a.price - b.price);
-            else if (sortType === 'price-desc') filteredProducts.sort((a, b) => b.price - a.price);
-            else if (sortType === 'discount-desc') filteredProducts.sort((a, b) => b.percent - a.percent);
-            else if (sortType === 'sold-desc') filteredProducts.sort((a, b) => (b.sold || 0) - (a.sold || 0));
-
-            currentPage = 1; renderUI();
-        }
-
-        function updateFilterUI() {
-            document.querySelectorAll('.filter-chip').forEach(btn => {
-                const { type, val, ex } = btn.dataset;
-                const isSel = (type && filters[type].includes(type === 'time' ? val : parseInt(val))) || (ex && filters.exclude.includes(parseInt(ex)));
-                btn.classList.toggle('active', !!isSel);
-            });
-        }
-
-        // COPY MOBILE FIX
-        async function copyLink(url, btn) {
-            const oldText = btn.innerText; btn.innerText = 'LẤY...'; btn.disabled = true;
-            if (navigator.clipboard && window.ClipboardItem) {
-                const copyPromise = fetch(`${BASE_URL}/api/get-short-link`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ longUrl: url }) })
-                .then(res => res.json()).then(data => data.shortLink || url);
-                const item = new ClipboardItem({ "text/plain": copyPromise.then(text => new Blob([text], { type: "text/plain" })) });
-                navigator.clipboard.write([item]).then(() => { btn.innerText = 'XONG!'; btn.classList.add('bg-emerald-600'); finish(); }).catch(() => handleLegacyCopy(url, btn, oldText));
-            } else { handleLegacyCopy(url, btn, oldText); }
-            function finish() { setTimeout(() => { btn.innerText = oldText; btn.classList.remove('bg-emerald-600'); btn.disabled = false; }, 1500); }
-        }
-
-        function handleLegacyCopy(text, btn, oldText) {
-            const textArea = document.createElement("textarea"); textArea.value = text;
-            textArea.style.position = "fixed"; textArea.style.left = "-9999px"; textArea.style.fontSize = '16px'; 
-            document.body.appendChild(textArea); textArea.focus(); textArea.select(); document.execCommand('copy');
-            document.body.removeChild(textArea); btn.innerText = 'XONG!'; setTimeout(() => { btn.innerText = oldText; btn.disabled = false; }, 1500);
-        }
-
-        function updateWishlistCounter() { document.getElementById('wishlist-count').innerText = wishlist.length; }
-        function toggleWishlist(item, event) {
-            event.preventDefault(); event.stopPropagation();
-            const idx = wishlist.findIndex(w => w.link === item.link);
-            if (idx > -1) wishlist.splice(idx, 1); else wishlist.push(item);
-            localStorage.setItem('wishlist_v1', JSON.stringify(wishlist));
-            updateWishlistCounter(); renderUI();
-        }
-        function toggleWishlistFilter() { isWishlistMode = true; updateTabUI(); applyFilters(); }
-        function showAllProducts() { isWishlistMode = false; updateTabUI(); applyFilters(); }
-        function updateTabUI() {
-            const allBtn = document.getElementById('all-btn'); const wishBtn = document.getElementById('wishlist-filter-btn');
-            if (isWishlistMode) { wishBtn.classList.add('active-wish'); allBtn.classList.replace('text-indigo-400', 'text-slate-500'); }
-            else { wishBtn.classList.remove('active-wish'); allBtn.classList.replace('text-slate-500', 'text-indigo-400'); }
-        }
-
-        function setupFilters() { 
-            const slots = [...new Set(allProducts.map(i => i.sale_slot))].filter(Boolean).sort();
-            document.getElementById('time-tags').innerHTML = slots.map(s => `<button onclick="toggleMultiFilter('time', '${s}')" class="filter-chip px-3 py-2 rounded-xl text-[10px] whitespace-nowrap" data-type="time" data-val="${s}">${s}</button>`).join('');
-            const shops = [...new Set(allProducts.map(i => i.shop_name))].filter(Boolean).sort();
-            document.getElementById('shop-select').innerHTML = '<option value="">Tất cả shop</option>' + shops.map(s => `<option value="${s}">${s}</option>`).join('');
-        }
-
-        function renderUI() {
-            const grid = document.getElementById('product-grid');
-            const items = filteredProducts.slice(0, currentPage * perPage);
-            if (items.length === 0 && currentPage === 1) { grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500 italic">Trống...</div>`; return; }
-            grid.innerHTML = items.map((item, index) => {
-                const isLiked = wishlist.some(w => w.link === item.link);
-                return `
-                <div class="product-card glass rounded-3xl overflow-hidden flex flex-col group relative transition-all" id="prod-${index}">
-                    <div class="relative overflow-hidden">
-                        <img src="${item.img}" class="w-full aspect-square object-cover transition-all group-hover:scale-110 duration-700">
-                        <div class="absolute top-2 left-2 flex flex-col gap-1.5">
-                            <span class="bg-indigo-600/90 text-white text-[9px] font-bold px-2 py-1 rounded-lg">📅 ${item.sale_date}</span>
-                            <span class="bg-slate-900/80 text-white text-[9px] font-bold px-2 py-1 rounded-lg">⚡ ${item.sale_slot}</span>
-                        </div>
-                    </div>
-                    <div class="p-3 md:p-4 flex flex-col flex-grow">
-                        <a href="${item.link}" target="_blank" class="block mb-2 group/title"><h3 class="text-[11px] md:text-xs font-semibold text-slate-200 line-clamp-2 h-9 group-hover/title:text-indigo-400 leading-snug"><span class="bg-red-500 text-white text-[9px] px-1 rounded mr-1">-${item.percent}%</span>${item.title}</h3></a>
-                        <div class="flex items-center gap-2 mb-3 flex-wrap">
-                            <span class="text-[16px] md:text-[18px] font-extrabold text-indigo-400 leading-none">${item.price.toLocaleString()}đ</span>
-                            <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">SL: ${item.amount}</span>
-                            <span class="text-[9px] md:text-[10px] text-slate-500 line-through opacity-70 w-full mt-[-4px]">
-                                ${item.original_price ? item.original_price.toLocaleString() + 'đ' : ''}
-                            </span>
-                        </div>
-                        <div class="relative w-full h-3.5 bg-slate-700/50 rounded-full overflow-hidden mb-4"><div class="progress-bar-fill absolute top-0 left-0 h-full transition-all duration-500"></div><div class="countdown-text absolute inset-0 flex items-center justify-center text-[8px] font-black text-white uppercase tracking-tighter">TẢI...</div></div>
-                        <div class="flex gap-1.5 mt-auto">
-                            <a href="${item.link}" target="_blank" class="buy-btn flex-[2] bg-indigo-600 text-white text-[10px] font-bold py-2.5 rounded-xl text-center active:scale-95 truncate px-1">MUA</a>
-                            <button onclick='toggleWishlist(${JSON.stringify(item).replace(/'/g, "&apos;")}, event)' class="flex-1 bg-slate-800/50 rounded-xl flex items-center justify-center ${isLiked ? 'text-pink-500' : 'text-slate-400'}"><i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-heart text-xs"></i></button>
-                            <button onclick="copyLink('${item.link}', this)" class="flex-[2] bg-slate-800 text-slate-300 text-[10px] font-bold py-2.5 rounded-xl active:scale-95 truncate px-1">COPY</button>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-            updateTimers();
-        }
-
-        function updateTimers() {
-            const now = new Date();
-            filteredProducts.slice(0, currentPage * perPage).forEach((item, index) => {
-                const card = document.getElementById(`prod-${index}`); if (!card) return;
-                const [d, m] = item.sale_date.split('/').map(Number); const [h, min] = item.sale_slot.split(':').map(Number);
-                const saleTime = new Date(now.getFullYear(), m - 1, d, h, min);
-                const isNotStarted = now < saleTime; const rem = (item.amount || 0) - (item.sold || 0);
-                const textEl = card.querySelector('.countdown-text'); const barEl = card.querySelector('.progress-bar-fill');
-                if (isNotStarted) {
-                    const diff = saleTime - now; const hh = Math.floor(diff / 3600000); const mm = Math.floor((diff % 3600000) / 60000); const ss = Math.floor((diff % 60000) / 1000);
-                    textEl.innerText = `Săn giá sale sau: ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
-                    barEl.style.width = "0%"; barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-indigo-500/50";
-                } else {
-                    if (rem <= 0) { textEl.innerText = "HẾT SALE"; barEl.style.width = "100%"; card.classList.add('brightness-[0.3]'); }
-                    else { textEl.innerText = rem <= 10 ? `CÒN: ${rem}` : `ĐÃ BÁN: ${item.sold || 0}`; barEl.style.width = Math.min(((item.sold || 0) / (item.amount || 1)) * 100, 100) + '%'; }
-                    barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-gradient-to-r from-orange-500 to-red-600";
-                }
-            });
-        }
-
-        function setupInfiniteScroll() { const trigger = document.getElementById('infinite-scroll-trigger'); const observer = new IntersectionObserver((entries) => { if (entries[0].isIntersecting && !isLoading && filteredProducts.length > currentPage * perPage) { isLoading = true; document.getElementById('infinite-scroll-trigger').style.opacity = "1"; setTimeout(() => { currentPage++; renderUI(); isLoading = false; document.getElementById('infinite-scroll-trigger').style.opacity = "0"; }, 300); } }, { threshold: 0.1 }); observer.observe(trigger); }
-        function toggleGuide() { const modal = document.getElementById('guide-modal'); modal.classList.toggle('hidden'); modal.classList.toggle('flex'); document.body.style.overflow = modal.classList.contains('hidden') ? 'auto' : 'hidden'; }
-        let confirmResolve;
-        function showConfirmModal(msg) { document.getElementById('confirm-msg').innerText = msg; const modal = document.getElementById('confirm-modal'); const box = document.getElementById('confirm-box'); modal.classList.replace('hidden', 'flex'); setTimeout(() => { box.classList.replace('opacity-0', 'opacity-100'); box.classList.replace('scale-95', 'scale-100'); }, 10); return new Promise((res) => { confirmResolve = res; }); }
-        function closeConfirmModal(res) { const modal = document.getElementById('confirm-modal'); modal.classList.replace('flex', 'hidden'); if (confirmResolve) confirmResolve(res); }
-
-        async function resetData() {
-            if (wishlist.length > 0) { const confirmed = await showConfirmModal("Xóa toàn bộ danh sách yêu thích?"); if (!confirmed) return; wishlist = []; localStorage.removeItem('wishlist_v1'); updateWishlistCounter(); if (isWishlistMode) showAllProducts(); }
-            const btn = document.querySelector('button[onclick="resetData()"]'); btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>';
-            try { filters = { price: [], percent: [], stock: [], time: [], exclude: [] }; document.getElementById('searchInput').value = ''; document.getElementById('shop-select').value = ''; updateFilterUI(); await init(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-            finally { setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> <span class="text-[10px]">Reset</span>'; btn.disabled = false; isResetting = false; }, 2000); }
-        }
-
-        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
-        setInterval(updateTimers, 1000);
-        init();
-        let isResetting = false;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
