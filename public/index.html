@@ -382,7 +382,7 @@
                 const textEl = card.querySelector('.countdown-text'); const barEl = card.querySelector('.progress-bar-fill');
                 if (isNotStarted) {
                     const diff = saleTime - now; const hh = Math.floor(diff / 3600000); const mm = Math.floor((diff % 3600000) / 60000); const ss = Math.floor((diff % 60000) / 1000);
-                    textEl.innerText = `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+                    textEl.innerText = `VỀ GIÁ SALE SAU: ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
                     barEl.style.width = "0%"; barEl.className = "progress-bar-fill absolute top-0 left-0 h-full bg-indigo-500/50";
                 } else {
                     if (rem <= 0) { textEl.innerText = "HẾT SALE"; barEl.style.width = "100%"; card.classList.add('brightness-[0.3]'); }
