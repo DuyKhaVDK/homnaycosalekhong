@@ -82,3 +82,14 @@ body {
     background: var(--accent);
     border-radius: 10px;
 }
+/* Hiệu ứng đổ bóng và bo tròn cho các nút mạng xã hội */
+.fixed a, .fixed button {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Đảm bảo icon Facebook căn giữa chuẩn */
+.fa-facebook {
+    line-height: 1;
+}
