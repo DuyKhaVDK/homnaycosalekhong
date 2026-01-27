@@ -94,26 +94,33 @@ body {
     line-height: 1;
 }
 .btn-doi-link {
-    background-color: #ee4d2d; /* Màu cam Shopee */
+    background: linear-gradient(90deg, #ee4d2d, #ff7337); /* Gradient đậm chất Shopee */
     color: white !important;
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 12px 30px; /* Kéo dài nút ra hai bên */
+    border-radius: 16px; /* Bo góc hiện đại hơn */
     text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 900; /* Font dày tối đa */
+    font-size: 18px; /* Chữ to hơn */
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 10px rgba(238, 77, 45, 0.3);
-    transition: all 0.3s ease;
+    gap: 10px;
+    box-shadow: 0 8px 20px rgba(238, 77, 45, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn-doi-link:hover {
-    transform: translateY(-2px);
-    background-color: #ff5722;
-    box-shadow: 0 6px 15px rgba(238, 77, 45, 0.4);
+    transform: translateY(-3px) scale(1.05); /* Bay lên và to ra khi di chuột */
+    box-shadow: 0 12px 25px rgba(238, 77, 45, 0.5);
+    filter: brightness(1.1);
 }
 
-.btn-doi-link::before {
-    content: "🔗"; /* Icon biểu tượng link */
+/* Hiệu ứng rung nhẹ để gây chú ý mỗi 5 giây */
+@keyframes attention-shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(1deg); }
+    75% { transform: rotate(-1deg); }
+}
+.btn-doi-link {
+    animation: attention-shake 5s infinite;
 }
