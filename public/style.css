@@ -93,3 +93,27 @@ body {
 .fa-facebook {
     line-height: 1;
 }
+.btn-doi-link {
+    background-color: #ee4d2d; /* Màu cam Shopee */
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(238, 77, 45, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-doi-link:hover {
+    transform: translateY(-2px);
+    background-color: #ff5722;
+    box-shadow: 0 6px 15px rgba(238, 77, 45, 0.4);
+}
+
+.btn-doi-link::before {
+    content: "🔗"; /* Icon biểu tượng link */
+}
