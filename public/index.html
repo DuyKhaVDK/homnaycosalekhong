@@ -22,27 +22,36 @@
 <body class="min-h-screen pb-20">
 
     <nav class="sticky top-0 z-50 glass border-b border-white/10 mb-3 md:mb-6">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-            <a href="." class="flex items-center gap-2 md:gap-3 group">
-                <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 transition-transform group-hover:scale-105">
-                    <img src="logomain.png" alt="Logo" class="w-full h-full object-cover rounded-xl shadow-lg border border-white/20">
-                </div>
-                <div class="flex flex-col justify-center">
-                    <h1 class="font-extrabold text-[11px] md:text-lg shopee-gradient-text uppercase py-1 leading-tight">HÔM NAY CÓ SALE KHÔNG? - DEAL 1K</h1>
-                    <p id="clock" class="text-[9px] md:text-[10px] font-mono text-slate-400">00:00:00</p>
-                </div>
-            </a>
+    <div class="max-w-7xl mx-auto px-3 py-2 md:px-4 md:py-3 flex items-center justify-between gap-2">
+        <a href="." class="flex items-center gap-2 min-w-0"> <div class="relative w-9 h-9 md:w-12 md:h-12 flex-shrink-0">
+                <img src="logomain.png" alt="Logo" class="w-full h-full object-cover rounded-xl border border-white/20 shadow-lg">
+            </div>
+            <div class="flex flex-col justify-center min-w-0">
+                <h1 class="font-extrabold text-[10px] md:text-lg shopee-gradient-text uppercase leading-tight truncate">
+                    HÔM NAY CÓ SALE KHÔNG? <span class="hidden md:inline">- DEAL 1K</span>
+                </h1>
+                <p id="clock" class="text-[8px] md:text-[10px] font-mono text-slate-400">00:00:00</p>
+            </div>
+        </a>
+
+        <div class="flex items-center gap-1.5 md:gap-3 flex-shrink-0">
             <a href="https://doilinkshopeev2.netlify.app/" target="_blank" 
-               class="glass px-3 py-2 rounded-xl border border-orange-500/30 text-orange-500 flex items-center gap-2 active:scale-95 transition-all">
-                <i class="fa-solid fa-link"></i>
-                <span class="text-[10px] md:text-xs font-bold uppercase">Đổi link 25%</span>
+               class="glass px-2 py-1.5 md:px-4 md:py-2 rounded-xl border border-orange-500/30 text-orange-500 flex items-center gap-1.5 active:scale-95 transition-all">
+                <i class="fa-solid fa-link text-[10px] md:text-sm"></i>
+                <div class="flex flex-col items-start leading-none">
+                    <span class="text-[8px] md:text-xs font-bold uppercase">Đổi link</span>
+                    <span class="text-[7px] md:text-[9px] text-orange-400 font-bold md:hidden">25%</span>
+                </div>
             </a>
-            <button onclick="resetData()" class="glass px-3 py-2 rounded-xl border border-indigo-500/30 text-indigo-400 flex items-center gap-2 active:scale-95 transition-all">
-                <i class="fa-solid fa-arrows-rotate group-hover:rotate-180 duration-500"></i>
-                <span class="text-[10px] md:text-xs font-bold uppercase">Reset</span>
+
+            <button onclick="resetData()" 
+                    class="glass px-2 py-1.5 md:px-4 md:py-2 rounded-xl border border-indigo-500/30 text-indigo-400 flex items-center gap-1.5 active:scale-95 transition-all">
+                <i class="fa-solid fa-arrows-rotate text-[10px] md:text-sm"></i>
+                <span class="text-[8px] md:text-xs font-bold uppercase">Reset</span>
             </button>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <main class="max-w-7xl mx-auto px-4">
         <div class="glass rounded-3xl p-4 mb-3 md:p-5 md:mb-6 shadow-2xl">
