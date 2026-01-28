@@ -35,17 +35,17 @@
         </a>
 
         <div class="flex items-center gap-1.5 md:gap-3 flex-shrink-0">
-            <a href="https://doilinkshopeev1.netlify.app/" target="_blank" 
-   class="relative flex-shrink-0 flex items-center gap-2 px-4 py-2 md:px-6 md:py-2.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-[0_0_15px_rgba(238,77,45,0.4)] active:scale-95 transition-all group overflow-hidden">
-    
-    <div class="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-[-25deg] -translate-x-full group-hover:animate-[shimmer_1s_infinite]"></div>
+            <button onclick="toggleVoucherModal()" 
+               class="relative flex-shrink-0 flex items-center gap-2 px-3 py-2 md:px-6 md:py-2.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-[0_0_15px_rgba(238,77,45,0.4)] active:scale-95 transition-all group overflow-hidden">
+                
+                <div class="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-[-25deg] -translate-x-full group-hover:animate-[shimmer_1s_infinite]"></div>
 
-    <i class="fa-solid fa-link text-xs md:text-base animate-pulse"></i>
-    <div class="flex flex-col items-start leading-none">
-        <span class="text-[11px] md:text-sm font-black uppercase tracking-tight">Đổi Link</span>
-        <span class="text-[8px] md:text-[10px] font-bold text-orange-100">Áp mã giảm 25%</span>
-    </div>
-</a>
+                <i class="fa-solid fa-ticket text-xs md:text-base animate-pulse"></i>
+                <div class="flex flex-col items-start leading-none text-left">
+                    <span class="text-[10px] md:text-sm font-black uppercase tracking-tight">Đổi Link</span>
+                    <span class="text-[7px] md:text-[10px] font-bold text-orange-100">Chọn mã 25%</span>
+                </div>
+            </button>
 
             <button onclick="resetData()" 
                     class="glass px-2 py-1.5 md:px-4 md:py-2 rounded-xl border border-indigo-500/30 text-indigo-400 flex items-center gap-1.5 active:scale-95 transition-all">
@@ -155,62 +155,71 @@
         </button>
     </div>
 
-    <div id="guide-modal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
-        <div class="glass max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scroll rounded-3xl p-6 md:p-8 relative shadow-2xl border border-indigo-500/30">
-            <button onclick="toggleGuide()" class="absolute top-4 right-4 text-slate-400 hover:text-white z-10">
+    <div id="voucher-modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
+        <div class="glass max-w-sm w-full rounded-3xl p-6 relative border border-white/10 shadow-2xl scale-95 transition-all duration-300" id="voucher-box">
+            <button onclick="toggleVoucherModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
-            <div class="space-y-6 text-slate-300 text-sm md:text-base">
-                <div class="text-center sticky top-0 bg-transparent pb-2">
-                    <h2 class="text-xl md:text-2xl font-black shopee-gradient-text uppercase italic">Mẹo Săn Deal 1K/9K</h2>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex gap-4">
-                    <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">1</div>
-                    <p><strong>Chọn Deal:</strong> Sử dụng bộ lọc hoặc tìm kiếm để chọn món cần săn.</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">2</div>
-                    <p><strong>Thêm giỏ:</strong> Nhấn "MUA" để thêm món vào giỏ hàng Shopee trước (hệ thống sẽ tự đưa bạn qua App Shopee khi nhấn).</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">3</div>
-                    <p><strong>Chuẩn bị thanh toán:</strong> Chờ ở màn hình thanh toán khi gần đến giờ sale.</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">4</div>
-                    <p><strong>Bật/tắt xu đúng giờ sale:</strong> Khi đến đúng giờ sale, hãy bật xu (hoặc bạn có thể bật xu sẵn rồi đến giờ thì tắt xu). Khi bật/tắt xu đúng giờ sale, giá sẽ tự động về đúng giá sale.</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">4</div>
-                    <p><strong>Đặt hàng:</strong> Nếu thấy về đúng giá, hãy nhanh tay <strong>Đặt hàng</strong> nhé!</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-6 h-6 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center flex-shrink-0 font-bold"><i class="fa-solid fa-heart text-[10px]"></i></div>
-                    <p><strong>Tính năng "Yêu thích":</strong> Nhấn ❤️ để lưu deal vào tab riêng để theo dõi giờ sale dễ dàng hơn, nhấn "Reset" để xóa danh sách yêu thích.</p>
-                </div>
-                </div>
-                <button onclick="toggleGuide()" class="w-full bg-indigo-600 font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all">SĂN SALE NGAY!</button>
+            
+            <div class="text-center mb-5">
+                <h3 class="text-lg font-black shopee-gradient-text uppercase italic">Chọn mã giảm 25%</h3>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Gắn mã trực tiếp qua tool đổi link</p>
             </div>
+
+            <img src="image_2f9d1a.png" alt="Voucher 25%" class="w-full rounded-xl mb-5 shadow-lg border border-white/5">
+
+            <div class="space-y-3">
+                <a href="https://doilinkshopeev1.netlify.app/" target="_blank" 
+                   class="flex items-center gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-orange-500/10 hover:border-orange-500/50 transition-all group">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-500 font-black text-lg">1</div>
+                    <div class="text-left leading-tight">
+                        <div class="text-xs font-black text-white group-hover:text-orange-500 uppercase">Giảm 200K (Đơn 100K)</div>
+                        <div class="text-[9px] text-slate-500 mt-1">Dành cho đơn hàng giá trị nhỏ</div>
+                    </div>
+                </a>
+
+                <a href="https://doilinkshopeev2.netlify.app/" target="_blank" 
+                   class="flex items-center gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-red-500/10 hover:border-red-500/50 transition-all group">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 font-black text-lg">2</div>
+                    <div class="text-left leading-tight">
+                        <div class="text-xs font-black text-white group-hover:text-red-500 uppercase">Giảm 250K (Đơn 150K)</div>
+                        <div class="text-[9px] text-slate-500 mt-1">Ưu tiên cho đơn hàng giá trị cao</div>
+                    </div>
+                </a>
+            </div>
+            
+            <p class="text-[9px] text-center text-slate-500 mt-5 uppercase font-bold tracking-widest">
+                Phát triển bởi Duy Kha Review
+            </p>
         </div>
     </div>
 
-    <div id="confirm-modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4 bg-slate-950/60 backdrop-blur-sm transition-all">
-        <div class="glass max-w-sm w-full rounded-3xl p-6 shadow-2xl border border-white/10 opacity-0 transition-all duration-300 scale-95" id="confirm-box">
-            <div class="text-center space-y-4">
-                <div class="w-16 h-16 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto">
-                    <i class="fa-solid fa-trash-can text-indigo-400 text-2xl"></i>
-                </div>
-                <h3 class="text-white font-bold text-lg">Xác nhận xóa?</h3>
-                <p class="text-slate-400 text-sm" id="confirm-msg"></p>
-                <div class="grid grid-cols-2 gap-3 pt-2">
-                    <button onclick="closeConfirmModal(false)" class="bg-slate-800 text-slate-300 font-bold py-3 rounded-2xl text-xs uppercase">Hủy</button>
-                    <button onclick="closeConfirmModal(true)" class="bg-indigo-600 text-white font-bold py-3 rounded-2xl text-xs uppercase">Đồng ý</button>
-                </div>
-            </div>
+    <div id="guide-modal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
         </div>
-    </div>
 
+    <script>
+        // Hàm đóng/mở Modal Chọn Mã
+        function toggleVoucherModal() {
+            const modal = document.getElementById('voucher-modal');
+            const box = document.getElementById('voucher-box');
+            
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    box.classList.remove('scale-95', 'opacity-0');
+                    box.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            } else {
+                box.classList.remove('scale-100', 'opacity-100');
+                box.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
