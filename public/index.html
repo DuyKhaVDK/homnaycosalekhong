@@ -183,7 +183,7 @@
                     <div class="w-10 h-10 rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 font-black text-lg">2</div>
                     <div class="text-left leading-tight">
                         <div class="text-xs font-black text-white group-hover:text-red-500 uppercase">Giảm 250K (Đơn 150K)</div>
-                        <div class="text-[9px] text-slate-500 mt-1">Hạn mức cao nhất</div>
+                        <div class="text-[9px] text-slate-500 mt-1"></div>
                     </div>
                 </a>
                 <img src="facebook2.jpg" alt="Voucher 250k" class="w-full rounded-xl shadow-lg border border-white/5">
@@ -198,7 +198,48 @@
 </div>
 
     <div id="guide-modal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
+        <div class="glass max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scroll rounded-3xl p-6 md:p-8 relative shadow-2xl border border-indigo-500/30">
+            <button onclick="toggleGuide()" class="absolute top-4 right-4 text-slate-400 hover:text-white z-10">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="space-y-6 text-slate-300 text-sm md:text-base">
+                <div class="text-center sticky top-0 bg-transparent pb-2">
+                    <h2 class="text-xl md:text-2xl font-black shopee-gradient-text uppercase italic">Mẹo Săn Deal 1K/9K</h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">1</div>
+                        <p><strong>Chọn Deal:</strong> Sử dụng bộ lọc hoặc tìm kiếm để chọn món cần săn.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">2</div>
+                        <p><strong>Thêm giỏ:</strong> Nhấn "MUA" để thêm món vào giỏ hàng Shopee trước (hệ thống sẽ tự đưa bạn qua App Shopee khi nhấn).</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">3</div>
+                        <p><strong>Chuẩn bị thanh toán:</strong> Chờ ở màn hình thanh toán khi gần đến giờ sale.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">4</div>
+                        <p><strong>Bật/tắt xu đúng giờ sale:</strong> Khi đến đúng giờ sale, hãy bật xu (hoặc bạn có thể bật xu sẵn rồi đến giờ thì tắt xu). Khi bật/tắt xu đúng giờ sale, giá sẽ tự động về đúng giá sale.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold">4</div>
+                        <p><strong>Đặt hàng:</strong> Nếu thấy về đúng giá, hãy nhanh tay <strong>Đặt hàng</strong> nhé!</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-6 h-6 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center flex-shrink-0 font-bold"><i class="fa-solid fa-heart text-[10px]"></i></div>
+                        <p><strong>Tính năng "Yêu thích":</strong> Nhấn ❤️ để lưu deal vào tab riêng để theo dõi giờ sale dễ dàng hơn, nhấn "Reset" để xóa danh sách yêu thích.</p>
+                    </div>
+                </div>
+                
+                <div class="pt-4 sticky bottom-0 bg-transparent">
+                    <button onclick="toggleGuide()" class="w-full bg-indigo-600 font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all">ĐÃ HIỂU, SĂN SALE THÔI!</button>
+                </div>
+            </div>
         </div>
+    </div>
 
     <script>
     // Hàm đóng/mở Modal Hướng dẫn săn deal
