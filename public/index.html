@@ -201,28 +201,38 @@
         </div>
 
     <script>
-        // Hàm đóng/mở Modal Chọn Mã
-        function toggleVoucherModal() {
-            const modal = document.getElementById('voucher-modal');
-            const box = document.getElementById('voucher-box');
-            
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                setTimeout(() => {
-                    box.classList.remove('scale-95', 'opacity-0');
-                    box.classList.add('scale-100', 'opacity-100');
-                }, 10);
-            } else {
-                box.classList.remove('scale-100', 'opacity-100');
-                box.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    modal.classList.remove('flex');
-                    modal.classList.add('hidden');
-                }, 300);
-            }
+    // Hàm đóng/mở Modal Hướng dẫn săn deal
+    function toggleGuide() {
+        const modal = document.getElementById('guide-modal');
+        if (modal) {
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
         }
-    </script>
-    <script src="script.js"></script>
+    }
+
+    // Hàm đóng/mở Modal Chọn Mã (Voucher)
+    function toggleVoucherModal() {
+        const modal = document.getElementById('voucher-modal');
+        const box = document.getElementById('voucher-box');
+        
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Hiệu ứng scale cho đẹp
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        } else {
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    }
+</script>
+<script src="script.js"></script>
 </body>
 </html>
