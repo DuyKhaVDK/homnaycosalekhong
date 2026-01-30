@@ -158,7 +158,7 @@
     </div>
 
     <div id="voucher-modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4 bg-slate-950/80 backdrop-blur-md transition-all">
-    <div class="glass max-w-sm w-full rounded-3xl p-6 relative border border-white/10 shadow-2xl scale-95 transition-all duration-300" id="voucher-box">
+    <div class="glass max-w-sm w-full rounded-3xl p-6 relative border border-white/10 shadow-2xl scale-95 transition-all duration-300 max-h-[90vh] overflow-y-auto custom-scroll" id="voucher-box">
         <button onclick="toggleVoucherModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
             <i class="fa-solid fa-xmark text-xl"></i>
         </button>
@@ -167,45 +167,47 @@
             <h3 class="text-lg font-black shopee-gradient-text uppercase italic">Chọn công cụ đổi link</h3>
         </div>
 
-        <div class="space-y-6"> <div class="space-y-3">
-                <a href="https://doilinkshopeev2.netlify.app/" target="_blank" 
+        <div class="space-y-4"> <div class="space-y-1.5"> <a href="https://doilinkshopeev2.netlify.app/" target="_blank" 
                     onclick="gtag('event', 'click_voucher_LA', {'event_category': 'conversion', 'event_label': 'V2'});" 
-                    class="flex items-center gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-orange-500/10 hover:border-orange-500/50 transition-all group">
+                    class="flex items-center gap-3 p-2.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-orange-500/10 transition-all group">
                     <div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-500 font-black text-lg">1</div>
                     <div class="text-left leading-tight">
                         <div class="text-xs font-black text-white group-hover:text-orange-500 uppercase">Giảm 250K (Đơn tối thiểu 150K)</div>
-                        <div class="text-[9px] text-slate-500 mt-1">Đơn to ưu tiên mã này</div>
+                        <div class="text-[9px] text-slate-500 mt-0.5">Đơn to ưu tiên mã này</div>
                     </div>
                 </a>
                 <img src="facebook2.jpg" alt="Voucher 250k" class="w-full rounded-xl shadow-lg border border-white/5">
             </div>
 
-            <div class="h-px bg-white/5 mx-4"></div> <div class="space-y-3">
+            <div class="h-px bg-white/5 mx-4"></div> 
+            
+            <div class="space-y-1.5">
                 <a href="https://doilinkshopeev1.netlify.app/" target="_blank" 
                     onclick="gtag('event', 'click_voucher_KA', {'event_category': 'conversion', 'event_label': 'V1'});" 
-                    class="flex items-center gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-red-500/10 hover:border-red-500/50 transition-all group">
+                    class="flex items-center gap-3 p-2.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-red-500/10 transition-all group">
                     <div class="w-10 h-10 rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 font-black text-lg">2</div>
                     <div class="text-left leading-tight">
                         <div class="text-xs font-black text-white group-hover:text-red-500 uppercase">Giảm 200K (Đơn tối thiểu 100K)</div>
-                        <div class="text-[9px] text-slate-500 mt-1">Ít lọc hơn</div>
+                        <div class="text-[9px] text-slate-500 mt-0.5">Ít lọc hơn</div>
                     </div>
                 </a>
-                <img src="facebook1.jpg" alt="Voucher 250k" class="w-full rounded-xl shadow-lg border border-white/5">
+                <img src="facebook1.jpg" alt="Voucher 200k" class="w-full rounded-xl shadow-lg border border-white/5">
             </div>
 
-            <div class="h-px bg-white/5 mx-4"></div> <div class="space-y-3">
+            <div class="h-px bg-white/5 mx-4"></div> 
+            
+            <div class="space-y-1.5">
                 <a href="https://doilinkshopee.netlify.app/" target="_blank" 
                     onclick="gtag('event', 'click_voucher_KHA', {'event_category': 'conversion', 'event_label': 'V'});" 
-                    class="flex items-center gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-red-500/10 hover:border-red-500/50 transition-all group">
+                    class="flex items-center gap-3 p-2.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-red-500/10 transition-all group">
                     <div class="w-10 h-10 rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 font-black text-lg">3</div>
                     <div class="text-left leading-tight">
                         <div class="text-xs font-black text-white group-hover:text-red-500 uppercase">Giảm 100K (Đơn tối thiểu 50K)</div>
-                        <div class="text-[9px] text-slate-500 mt-1">Ít lọc nhất</div>
+                        <div class="text-[9px] text-slate-500 mt-0.5">Ít lọc nhất</div>
                     </div>
                 </a>
-                <img src="facebook3.jpg" alt="Voucher 250k" class="w-full rounded-xl shadow-lg border border-white/5">
+                <img src="facebook3.jpg" alt="Voucher 100k" class="w-full rounded-xl shadow-lg border border-white/5">
             </div>
-            
         </div>
         
         <p class="text-[9px] text-center text-slate-500 mt-6 uppercase font-bold tracking-widest">
@@ -259,7 +261,6 @@
     </div>
 
     <script>
-    // Hàm đóng/mở Modal Hướng dẫn săn deal
     function toggleGuide() {
         const modal = document.getElementById('guide-modal');
         if (modal) {
@@ -268,7 +269,6 @@
         }
     }
 
-    // Hàm đóng/mở Modal Chọn Mã (Voucher)
     function toggleVoucherModal() {
         const modal = document.getElementById('voucher-modal');
         const box = document.getElementById('voucher-box');
@@ -276,7 +276,6 @@
         if (modal.classList.contains('hidden')) {
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            // Hiệu ứng scale cho đẹp
             setTimeout(() => {
                 box.classList.remove('scale-95', 'opacity-0');
                 box.classList.add('scale-100', 'opacity-100');
