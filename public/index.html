@@ -46,16 +46,24 @@
 
     <main class="max-w-7xl mx-auto px-4">
         
-        <div class="mb-4 md:mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 md:mb-6">
             <a href="https://doilinkshopee.netlify.app/" 
-               class="relative w-full flex items-center justify-center gap-4 px-6 py-4 md:py-6 rounded-3xl bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 text-white shadow-[0_10px_30px_rgba(238,77,45,0.4)] active:scale-[0.98] transition-all group overflow-hidden border border-white/20">
-                
+               class="relative flex items-center justify-center gap-4 px-6 py-4 md:py-5 rounded-3xl bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 text-white shadow-lg active:scale-[0.98] transition-all group overflow-hidden border border-white/20">
                 <div class="absolute inset-0 w-full h-full bg-white/30 skew-x-[-25deg] -translate-x-[150%] group-hover:animate-[shimmer_1s_infinite]"></div>
-
-                <i class="fa-solid fa-ticket text-2xl md:text-4xl animate-pulse"></i>
+                <i class="fa-brands fa-facebook text-2xl md:text-4xl animate-pulse"></i>
                 <div class="flex flex-col items-center leading-tight">
                     <span class="text-lg md:text-2xl font-black uppercase tracking-wider">Đổi Link Áp Mã Giảm 25%</span>
-                    <!-- <span class="text-sm md:text-base font-semibold text-gray-500 italic mt-1">(Mã 25% tạm hết)</span>-->
+                    <span class="text-xs md:text-base font-semibold opacity-90 mt-1 italic">Giảm tối đa 250K</span>
+                </div>
+            </a>
+
+            <a href="https://doilinkshopee22.netlify.app/" 
+               class="relative flex items-center justify-center gap-4 px-6 py-4 md:py-5 rounded-3xl bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 text-white shadow-lg active:scale-[0.98] transition-all group overflow-hidden border border-white/20">
+                <div class="absolute inset-0 w-full h-full bg-white/30 skew-x-[-25deg] -translate-x-[150%] group-hover:animate-[shimmer_1s_infinite]"></div>
+                <i class="fa-brands fa-facebook text-2xl md:text-4xl animate-pulse"></i>
+                <div class="flex flex-col items-center leading-tight">
+                    <span class="text-lg md:text-2xl font-black uppercase tracking-wider">Đổi Link Áp Mã Giảm 22%</span>
+                    <span class="text-xs md:text-base font-semibold opacity-90 mt-1 italic">Giảm tối đa 200K</span>
                 </div>
             </a>
         </div>
@@ -197,6 +205,22 @@
                 
                 <div class="pt-4 sticky bottom-0 bg-transparent">
                     <button onclick="toggleGuide()" class="w-full bg-indigo-600 font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all">ĐÃ HIỂU, SĂN SALE THÔI!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4 bg-slate-950/60 backdrop-blur-sm transition-all">
+        <div class="glass max-w-sm w-full rounded-3xl p-6 shadow-2xl border border-white/10 opacity-0 transition-all duration-300 scale-95" id="confirm-box">
+            <div class="text-center space-y-4">
+                <div class="w-16 h-16 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto">
+                    <i class="fa-solid fa-trash-can text-indigo-400 text-2xl"></i>
+                </div>
+                <h3 class="text-white font-bold text-lg">Xác nhận xóa?</h3>
+                <p class="text-slate-400 text-sm" id="confirm-msg"></p>
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button onclick="closeConfirmModal(false)" class="bg-slate-800 text-slate-300 font-bold py-3 rounded-2xl text-xs uppercase">Hủy</button>
+                    <button onclick="closeConfirmModal(true)" class="bg-indigo-600 text-white font-bold py-3 rounded-2xl text-xs uppercase">Đồng ý</button>
                 </div>
             </div>
         </div>
